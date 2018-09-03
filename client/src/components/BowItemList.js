@@ -1,28 +1,37 @@
 import React, { Component } from 'react';
-import uuid from 'uuid';
+import { connect } from 'react-redux';
+import { getBowItems } from '../actions/bowItemActions';
+import PropTypes from 'prop-types';
 
 class BowItemList extends Component {
-    state = {
-        bowItems: [
-            {id:uuid(), price: 111, name: "tiddies"},
-            {id:uuid(), price: 111, name: "tiddies2"},
-            {id:uuid(), price: 111, name: "tiddies3"},
-            {id:uuid(), price: 111, name: "tiddies4"}
-        ]
+    
+    componentDidMount() {
+        this.props.getBowItems();
     }
 
     render() {
-        const { bowItems } = this.state;
+        const { bowItems } = this.props.bowItem;
         return (
+            <div>
             <ul>
                 {bowItems.map(({ id, price, name }) => (
                     <li key={id}>
-                        {price}, {name}
+                         {name}, {price}
                     </li>
                 ))}
             </ul>
+            </div>
         );
     }
 }
 
-export default BowItemList;
+BowItemList.propTypes = {
+    getBowItems: PropTypes.func.isRequired,
+    bowItem: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state) => ({
+    bowItem: state.bowItem
+})
+
+export default connect(mapStateToProps, { getBowItems })(BowItemList);
