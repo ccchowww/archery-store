@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 
-const testes = require('./routes/api/testes');
+const bowItem = require('./routes/api/bowItem');
 
 //Bodyparser middleware
 app.use(bodyParser.json());
@@ -17,7 +17,7 @@ mongoose
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.log(err));
 
-app.use('/', testes);
+app.use('/', bowItem);
 
 //serve static if production
 if(process.env.NODE_ENV == 'production') {
