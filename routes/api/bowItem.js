@@ -6,13 +6,14 @@ const BowItem = require('../../models/BowItem');
 // const BowType = require('../../models/BowType');
 // const Manufacturer = require('../../models/Manufacturer');
 
-// @route   GET /api/testes
-// @desc    test homepage
+// @route   GET /api/bowitem
+// @desc    currently lists bowitems //test homepage
 // @access  Public
-router.get('/bowitemlist', (req, res, next) => {
+router.get('/', (req, res, next) => {
     //fetch everything
     BowItem
         .find()
+        .sort({ price: -1 })
         .then(bowItem => res.json(bowItem));
 });
 

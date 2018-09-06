@@ -14,9 +14,9 @@ class BowItemList extends Component {
         return (
             <div>
             <ul>
-                {bowItems.map(({ id, price, name }) => (
-                    <li key={id}>
-                         {name}, {price}
+                {bowItems.map(({ _id, price, name }) => (
+                    <li key={_id}>
+                         {name}, {price}, {_id}
                     </li>
                 ))}
             </ul>

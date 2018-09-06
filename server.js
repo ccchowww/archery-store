@@ -17,7 +17,7 @@ mongoose
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.log(err));
 
-app.use('/', bowItem);
+app.use('/api/bowitem', bowItem);
 
 //serve static if production
 if(process.env.NODE_ENV == 'production') {
