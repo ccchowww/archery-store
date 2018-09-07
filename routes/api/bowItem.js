@@ -13,6 +13,7 @@ router.get('/', (req, res, next) => {
     //fetch everything
     BowItem
         .find()
+        .populate('manufacturer')
         .sort({ price: -1 })
         .then(bowItem => res.json(bowItem));
 });
@@ -21,6 +22,8 @@ router.get('/', (req, res, next) => {
 router.post('/bowitempost', (req, res, next) => {
     const newBowItem = new BowItem(
         {
+            // bowType: req.body.bowType,
+            manufacturer: req.body.manufacturer,
             price: req.body.price,
             name: req.body.name
         }
