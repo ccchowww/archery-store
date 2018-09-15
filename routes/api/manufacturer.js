@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/manufacturerpost', (req, res, next) => {
-    const newManufacturer = new Manufacturer({
+    let newManufacturer = new Manufacturer({
         name: req.body.name
     });
 

@@ -13,15 +13,13 @@ class BowItemList extends Component {
         const { bowItems } = this.props.bowItem;
         return (
             <div>
-            <ul>
-                
-                {bowItems.map(({ _id, price, name, manufacturer }) => (
-                    <li key={_id}>
-                         {name}, {price}, {_id}, {manufacturer.name}
-                         
-                    </li>
-                ))}
-            </ul>
+                <ul>
+                    {bowItems.map(({ _id, price, name, manufacturer }) => (
+                        <li key={_id}>
+                            {name}, {price}, {_id}, {manufacturer.name}
+                        </li>
+                    ))}
+                </ul>
             </div>
         );
     }

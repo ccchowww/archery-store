@@ -20,7 +20,7 @@ router.get('/', (req, res, next) => {
 
 //test post
 router.post('/bowitempost', (req, res, next) => {
-    const newBowItem = new BowItem(
+    let newBowItem = new BowItem(
         {
             // bowType: req.body.bowType,
             manufacturer: req.body.manufacturer,
