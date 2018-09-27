@@ -1,37 +1,80 @@
 const express = require('express');
 const router = express.Router();
 
-//Item model
 const BowItem = require('../../models/BowItem');
-// const BowType = require('../../models/BowType');
-// const Manufacturer = require('../../models/Manufacturer');
+const Order = require('../../models/Order');
 
-// @route   GET /api/bowitem
-// @desc    currently lists bowitems //test homepage
-// @access  Public
-router.get('/', (req, res, next) => {
-    //fetch everything
+//GET /api/bowitem
+//get all bowitems
+router.get('/all', (req, res, next) => {
     BowItem
         .find()
-        .populate('manufacturer')
-        .sort({ price: -1 })
         .then(bowItem => res.json(bowItem));
 });
+
+//GET /api/bowitem/search/:query
+//get all bowitems only name, manufacturer, bowType
+router.get('/search', (req, res, next) => {
+    BowItem
+        .find({}, 'name manufacturer bowType')
+        .then(bowItem => res.json(bowItem));
+})
+
+//GET /api/bowitem/archerystyle/:name
+//get bowitems by archery style 
+router.get('/archerystyle/:name', (req, res, next) => {
+    BowItem
+        .find({'archeryStyle': req.params.name})
+        .then(bowItem => res.json(bowItem));
+});
+
+//GET /api/bowitem/manufacturer/:name
+//get bowitems by manufacturer
+router.get('/manufacturer/:name', (req, res, next) => {
+    BowItem
+        .find({'manufacturer': req.params.name})
+        .then(bowItem => res.json(bowItem));
+})
+
+//GET /api/bowitem/orders
+//get all orders
+router.get('/orders', (req, res, next) => {
+    Order
+        .find()
+        .populate('bowItem')
+        .then(orders => res.json(orders));
+})
 
 //test post
 router.post('/bowitempost', (req, res, next) => {
     let newBowItem = new BowItem(
         {
-            // bowType: req.body.bowType,
-            manufacturer: req.body.manufacturer,
+            name: req.body.name,
             price: req.body.price,
-            name: req.body.name
+            manufacturer: req.body.manufacturer,
+            archeryStyle: req.body.archeryStyle,
+            bowType: req.body.bowType,
+            specs: req.body.specs
         }
     );
     newBowItem
         .save()
         .then(BowItem => res.send(res.json(BowItem)));
 });
+
+router.post('/orderpost', (req, res, next) => {
+    let newOrder = new Order(
+        {
+            bowItem: req.body.bowItem_id,
+            quantity: req.body.quantity,
+            message: req.body.message,
+            isPublic: req.body.isPublic
+        }
+    );
+    newOrder
+        .save()
+        .then(order => res.send(res.json(order)));
+})
 
 //test delete
 router.delete('/bowitemdelete/:id', (req, res, next) => {

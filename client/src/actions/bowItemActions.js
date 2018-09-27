@@ -4,7 +4,7 @@ import axios from 'axios';
 export const getBowItems = () => dispatch => {
     dispatch(setBowItemsLoading());
     axios
-        .get('/api/bowitem')
+        .get('/api/bowitem/all')
         .then(res =>
             dispatch({
                 type: GET_ITEMS,
