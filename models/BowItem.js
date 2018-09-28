@@ -14,4 +14,10 @@ const BowItemSchema = new Schema(
     }
 );
 
+BowItemSchema
+    .virtual('url')
+    .get(function() {
+        return (this._id);
+    })
+
 module.exports = mongoose.model('BowItem', BowItemSchema);

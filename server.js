@@ -5,6 +5,7 @@ const path = require('path');
 const app = express();
 
 const bowItem = require('./routes/api/bowItem');
+const order = require('./routes/api/order');
 
 //Bodyparser middleware
 app.use(bodyParser.json());
@@ -18,6 +19,7 @@ mongoose
     .catch(err => console.log(err));
 
 app.use('/api/bowitem', bowItem);
+app.use('/api/order', order);
 
 //serve static if production
 if(process.env.NODE_ENV == 'production') {

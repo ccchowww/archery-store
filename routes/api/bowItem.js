@@ -38,12 +38,12 @@ router.get('/manufacturer/:name', (req, res, next) => {
 
 //GET /api/bowitem/orders
 //get all orders
-router.get('/orders', (req, res, next) => {
-    Order
-        .find()
-        .populate('bowItem')
-        .then(orders => res.json(orders));
-})
+// router.get('/orders', (req, res, next) => {
+//     Order
+//         .find()
+//         .populate('bowItem')
+//         .then(orders => res.json(orders));
+// })
 
 //test post
 router.post('/bowitempost', (req, res, next) => {
@@ -62,19 +62,19 @@ router.post('/bowitempost', (req, res, next) => {
         .then(BowItem => res.send(res.json(BowItem)));
 });
 
-router.post('/orderpost', (req, res, next) => {
-    let newOrder = new Order(
-        {
-            bowItem: req.body.bowItem_id,
-            quantity: req.body.quantity,
-            message: req.body.message,
-            isPublic: req.body.isPublic
-        }
-    );
-    newOrder
-        .save()
-        .then(order => res.send(res.json(order)));
-})
+// router.post('/orderpost', (req, res, next) => {
+//     let newOrder = new Order(
+//         {
+//             bowItem: req.body.bowItem_id,
+//             quantity: req.body.quantity,
+//             message: req.body.message,
+//             isPublic: req.body.isPublic
+//         }
+//     );
+//     newOrder
+//         .save()
+//         .then(order => res.send(res.json(order)));
+// })
 
 //test delete
 router.delete('/bowitemdelete/:id', (req, res, next) => {

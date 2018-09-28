@@ -31,17 +31,22 @@ class Home extends Component {
     
 
     render() {
-        const { bowItems } = this.props.bowItem;
+        const { bowItems, loading } = this.props.bowItem;
         const filteredbowitems = [];
+        const loadingIcon = () => {if (loading === true) {
+            return (<h1>LOADING AH</h1>);
+            }
+            return
+        }
         bowItems.forEach((bowitem) => {
             if (bowitem.name.toLowerCase().indexOf(this.state.searchbarInput.toLowerCase()) === -1) {
                 return;
             }
             filteredbowitems.push(bowitem);
         })
-        
         return (
             <div>
+                {loadingIcon()}
             <input type='text' onChange={this.onChange} value={this.state.searchbarInput}></input>
             <ul style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', listStyle: 'none'}}>
 
