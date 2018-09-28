@@ -6,9 +6,9 @@ const Schema = mongoose.Schema;
 const OrderSchema = new Schema(
     {
         bowItem: {type: Schema.Types.ObjectId, ref: 'BowItem'},
-        quantity: {type: Number, max: 100},
+        quantity: {type: Number, min: 1, max: 100},
         message: {type: String, max: 140},
-        pin: {type: Number, max: 9999, required: true}
+        pin: {type: Number, min: 1, max: 9999, required: true}
     }
 );
 

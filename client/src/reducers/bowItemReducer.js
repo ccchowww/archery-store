@@ -1,4 +1,4 @@
-import { GET_ITEMS, ADD_ITEMS, DELETE_ITEMS, ITEMS_LOADING } from '../actions/types';
+import { GET_BOWITEMS, BOWITEMS_LOADING } from '../actions/types';
 
 const initialState = {
     bowItems: [],
@@ -7,13 +7,13 @@ const initialState = {
 
 export default function(state = initialState, action) {
     switch(action.type) {
-        case GET_ITEMS:
+        case GET_BOWITEMS:
             return {
                 ...state,
                 bowItems: action.payload,
                 loading: false
             }
-        case ITEMS_LOADING:
+        case BOWITEMS_LOADING:
             return {
                 ...state,
                 loading: true

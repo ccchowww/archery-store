@@ -10,42 +10,43 @@ router.get('/', (req, res, next) => {
         .then(order => res.json(order));
 })
 
-router.get('/:pin', (req, res, next) => {
-    Order
-        .find({'pin': req.params.pin})
-        .populate('bowItem')
-        .then(order => res.json(order));
-});
 
-router.post('/:pin/post', (req, res, next) => {
+router.post('/post', (req, res, next) => {
     let NewOrder = new Order(
         {
             bowItem: req.body.bowitem_id,
             quantity: req.body.quantity,
             message: req.body.message,
-            pin: req.params.pin
+            pin: req.body.pin
         }
     );
     NewOrder
-        .save()
-        .then(order => res.send(res.json(order)));
-})
+        .save(function(err, savedOrder) {
+            savedOrder.populate('bowItem', function(err, theorder) {
+                res.send(theorder);
+            })
+        })
+    })
 
-router.post('/:pin/update', (req, res, next) => {
+router.post('/update', (req, res, next) => {
     let UpdatedOrder = new Order(
         {
             bowItem: req.body.bowitem_id,
             quantity: req.body.quantity,
             message: req.body.message,
-            pin: req.params.pin,
+            pin: req.body.pin,
             _id: req.body._id
         }
     );
 
     Order
-        .findByIdAndUpdate(req.body._id, UpdatedOrder, {}, function(err, theorder) {
+        .findByIdAndUpdate(req.body._id, UpdatedOrder, {new: true}, function(err, theorder) {
             if (err) { return next(err); }
-            res.json({success: true});
+            
+            Order
+                .findById(req.body._id)
+                .populate('bowItem')
+                .then(order => res.json(order));
         });
         
 })

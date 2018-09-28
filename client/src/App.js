@@ -5,13 +5,11 @@ import './components/TopBar';
 import { Container } from 'reactstrap';
 import AppNavbar from './components/TopBar';
 import BowItemList from './components/BowItemList';
-import ShoppingList from './components/ShoppingList';
-import ItemModal from './components/ItemModal';
 import { Provider } from 'react-redux';
 import store from './store';
 import Home from './components/Home';
 import TopBar from './components/TopBar';
-
+import Order from './components/Order';
 
 class App extends Component {
   render() {
@@ -19,9 +17,8 @@ class App extends Component {
       <Provider store={store}>
       <div>
         <TopBar />
-        {/* <Container> */}
+        <Order />
         <Home />
-        {/* </Container> */}
       </div>
       </Provider>
     );
