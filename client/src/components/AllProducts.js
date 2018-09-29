@@ -18,7 +18,7 @@ class Toolbar extends Component {
     }
 }
 
-class Home extends Component {
+class AllProducts extends Component {
 
     state = {
         searchbarInput: '',
@@ -50,6 +50,10 @@ class Home extends Component {
     
 
     render() {
+        const toolbarSearchInput = this.props.toolbarSearchInput;
+
+
+
         const { bowItems, loading } = this.props.bowItems;
         const filteredbowitems = [];
         const loadingIcon = () => {if (loading === true) {
@@ -99,4 +103,4 @@ const mapStateToProps = (state) => ({
 })
 
 
-export default connect(mapStateToProps, { getBowItems })(Home);
+export default connect(mapStateToProps, { getBowItems })(AllProducts);

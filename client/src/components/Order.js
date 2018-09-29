@@ -26,15 +26,16 @@ class Order extends Component {
         quantity: "",
         message: "",
         orderId: "",
-        orderName: ""
+        bowItemName: ""
     }
 
-    handleSelect = (_id, pin, orderName) => {
+    handleSelect = (_id, pin, bowItemName, bowItemId) => {
         const pinNumber = parseInt(pin);
         this.setState({
             pin: pinNumber,
             orderId: _id,
-            orderName: orderName
+            bowItemName: bowItemName,
+            bowItemId: bowItemId
         });
     }
 
@@ -110,7 +111,6 @@ class Order extends Component {
             pin: pinNumber
         }
         this.props.addOrder(newOrder);
-        // Add item via addItem action
     }
 
     handleUpdateOrder = e => {
@@ -149,10 +149,13 @@ class Order extends Component {
 
     render() {
         const { orders, loading } = this.props.orders;
+
+        
+
         return (
             <div>
                 <Toolbar 
-                    selectedName={this.state.orderName}
+                    selectedName={this.state.bowItemName}
                     />
                 <div>
                     {loading === true ? <h1>LOADING ORDERS AHH HH</h1> : null}
@@ -162,7 +165,7 @@ class Order extends Component {
                             <li key={_id}>
                                 {"order id: "+ _id + " " + bowItem.name + " " + bowItem._id + " number: " + quantity + " "+ pin + " " + message}
                                 <input
-                                    onClick={this.handleSelect.bind(this, _id, pin, bowItem.name, bowItem._id, _id)}
+                                    onClick={this.handleSelect.bind(this, _id, pin, bowItem.name, bowItem._id)}
                                     type="button"
                                     value="Select"/>
                             </li>
