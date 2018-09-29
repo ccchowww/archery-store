@@ -53,10 +53,16 @@ router.post('/update', (req, res, next) => {
 
 
 router.delete('/delete', (req, res, next) => {
+    console.log(req.body);
     Order
-        .findById(req.body.id)
-        .then(order => order.remove())
-        .then(() => res.json({success: true}));
+        .findByIdAndRemove(req.body._id, {select: "_id"}, function(err, deletedorder) {
+            res.send(deletedorder)
+        });
+
+        // .findById(req.body._id)
+        // .then(order => order.remove())
+        // .then(() => res.json({success: true}));
+        
 })
 
 module.exports = router;

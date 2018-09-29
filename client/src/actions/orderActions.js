@@ -26,13 +26,13 @@ export const updateOrder = updatedOrder => dispatch => {
          }));
 }
 
-export const deleteOrder = orderId => dispatch => {
-    axios
-        .delete('/api/order/delete', orderId)
-        .then(res => dispatch({
+export const deleteOrder = DeleteOrder => dispatch => {
+    console.log(DeleteOrder);
+    axios.delete('/api/order/delete', { data: DeleteOrder })
+         .then(res => dispatch({
             type: DELETE_ORDER,
             payload: res.data
-        }))
+        }));
 }
 
 export const setOrdersLoading = () => {

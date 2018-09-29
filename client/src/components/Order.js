@@ -2,18 +2,57 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getOrders, addOrder, updateOrder, deleteOrder } from '../actions/orderActions';
 
+class Toolbar extends Component {
+
+    render() {
+        return (
+            <div style={{display: 'flex'}}>
+                <div style={{flexGrow: 1}}>
+                </div>
+                <div>
+                    <div>Selected: {this.props.selectedName}</div>
+                </div>
+            </div>
+        );
+    }
+}
+
 
 class Order extends Component {
     state = {
         pin: "",
+        userPin: "",
         bowItemId: "",
         quantity: "",
         message: "",
         orderId: "",
+        orderName: ""
+    }
+
+    handleSelect = (_id, pin, orderName) => {
+        const pinNumber = parseInt(pin);
+        this.setState({
+            pin: pinNumber,
+            orderId: _id,
+            orderName: orderName
+        });
     }
 
     handleChange = (e) => {
         switch(e.target.name) {
+            case 'userPin':
+                if (e.target.value > 9999 || e.target.value < 0) {
+                    this.setState({
+                        [e.target.name]: ""
+                    })
+                    return (
+                        alert("Min-Max: 1-9999")   
+                    );
+                }
+                this.setState({
+                    [e.target.name]: e.target.value
+                });
+                return;
             case 'pin':
                 if (e.target.value > 9999 || e.target.value < 0) {
                     this.setState({
@@ -88,6 +127,22 @@ class Order extends Component {
         this.props.updateOrder(updatedOrder);
     }
 
+    handleDeleteOrder = e => {
+        e.preventDefault();
+        const pinNumber = parseInt(this.state.pin);
+        const userPinNumber = parseInt(this.state.userPin);
+        console.log(pinNumber, userPinNumber);
+        if (pinNumber === userPinNumber) {
+            const DeleteOrder = {
+                _id: this.state.orderId
+            };
+            console.log(DeleteOrder);
+            this.props.deleteOrder(DeleteOrder);
+        } else {
+            alert('Pin does not match order');
+        }
+    }
+
     componentDidMount() {
         this.props.getOrders();
     }
@@ -96,12 +151,21 @@ class Order extends Component {
         const { orders, loading } = this.props.orders;
         return (
             <div>
+                <Toolbar 
+                    selectedName={this.state.orderName}
+                    />
                 <div>
                     {loading === true ? <h1>LOADING ORDERS AHH HH</h1> : null}
                     <ul>
                         {
                             orders.map(({ pin, bowItem, quantity, message, _id }) => (
-                            <li key={_id}>{"order id: "+ _id + " " + bowItem.name + " " + bowItem._id + " number: " + quantity + " "+ pin + " " + message}</li>
+                            <li key={_id}>
+                                {"order id: "+ _id + " " + bowItem.name + " " + bowItem._id + " number: " + quantity + " "+ pin + " " + message}
+                                <input
+                                    onClick={this.handleSelect.bind(this, _id, pin, bowItem.name, bowItem._id, _id)}
+                                    type="button"
+                                    value="Select"/>
+                            </li>
                             ))
                         }
                     </ul>
@@ -138,6 +202,15 @@ class Order extends Component {
                             <textarea name="message" value={this.state.message} onChange={this.handleChange}/>
                         </label>
                         <input type="submit" value="Update Order"/>
+                    </form>
+                </div>
+                <div>
+                    <form onSubmit={this.handleDeleteOrder}>
+                        <label>
+                            Pin:
+                            <input name="userPin" type="number" value={this.state.userPin} onChange={this.handleChange}/>
+                        </label>
+                        <input type="submit" value="Delete Order"/>
                     </form>
                 </div>
             </div>

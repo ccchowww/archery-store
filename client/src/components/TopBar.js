@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class TopBar extends Component {
     render() {
         return (
-            <div className="grid-topbar">
+            <div>
             <nav style={{display: 'flex'}}>
             <div style={{flexGrow: '1'}}>
                 Github
