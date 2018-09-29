@@ -2,26 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getBowItems } from '../actions/bowItemActions';
 
-class Toolbar extends Component {
-
-    render() {
-        return (
-            <div style={{display: 'flex'}}>
-                <div style={{flexGrow: 1}}>
-                    <input type="text" onChange={this.props.onChange} value={this.props.searchbarInput}/>
-                </div>
-                <div>
-                    <div>Selected: {this.props.selectedName}</div>
-                </div>
-            </div>
-        );
-    }
-}
 
 class AllProducts extends Component {
 
     state = {
-        searchbarInput: '',
         filteredBowItems: [],
         manufacturer: '',
         archeryStyle: '',
@@ -29,11 +13,6 @@ class AllProducts extends Component {
         selectedId: ''
     }
     
-    onChange = (e) => {
-        this.setState({
-            searchbarInput: e.target.value
-        });
-    }
 
     onSelect = (_id, name) => {
         this.setState({
@@ -50,8 +29,7 @@ class AllProducts extends Component {
     
 
     render() {
-        const toolbarSearchInput = this.props.toolbarSearchInput;
-
+        const toolbarSearchValue = this.props.toolbarSearchValue;
 
 
         const { bowItems, loading } = this.props.bowItems;
@@ -62,7 +40,7 @@ class AllProducts extends Component {
             return
         }
         bowItems.forEach((bowitem) => {
-            if (bowitem.name.toLowerCase().indexOf(this.state.searchbarInput.toLowerCase()) === -1
+            if (bowitem.name.toLowerCase().indexOf(toolbarSearchValue.toLowerCase()) === -1
                 // && bowitem.manufacturer.toLowerCase().indexOf(this.state.searchbarInput.toLowerCase()) === -1
                 // && bowitem.archeryStyle.toLowerCase().indexOf(this.state.searchbarInput.toLowerCase()) === -1
                 ) {
@@ -73,11 +51,6 @@ class AllProducts extends Component {
 
         return (
             <div>
-            <Toolbar
-                onChange={this.onChange}
-                searchbarInput={this.state.searchbarInput}
-                selectedName={this.state.selectedName}
-                />
             {loadingIcon()}
             <ul style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', listStyle: 'none'}}>
 

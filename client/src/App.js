@@ -52,6 +52,8 @@ class Toolbar extends Component {
       } else {
         ordersStyle = null
       }
+
+      
       
       return (
           <div className="toolbar">
@@ -59,11 +61,17 @@ class Toolbar extends Component {
                 <span className="toolbar-item-left" style={productsStyle} onClick={this.props.viewProducts}>View Products</span>
                 <span className="toolbar-item-left" style={ordersStyle} onClick={this.props.viewOrder}>Leave an Order</span>
               </span>
-              <span className="toolbar-items-center">
-
-              </span>
               <span className="toolbar-items-right">
-                  
+              {
+                this.props.viewProductsToggleState === true ?
+                  <input type="text" className="toolbar-item-right searchbar"
+                  name="toolbarSearchInput"
+                  onChange={this.props.allProductsSearchHandler}
+                  value={this.props.allProductsSearchValue}
+                  />
+                  : <span className="toolbar-item-right"></span>
+              }
+
               </span>
           </div>
       );
@@ -96,7 +104,8 @@ class App extends Component {
   state = {
     activeContent: "",
     viewProductsToggle: false,
-    viewOrderToggle: false
+    viewOrderToggle: false,
+    toolbarSearchInput: ""
   }
 
   viewProducts = () => {
@@ -131,6 +140,12 @@ class App extends Component {
     }
   }
 
+  toolbarSearchOnChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
   render() {
     return (
       <Provider store={store}>
@@ -141,13 +156,20 @@ class App extends Component {
         viewOrder={this.viewOrder}
         viewProductsToggleState={this.state.viewProductsToggle}
         viewOrdersToggleState={this.state.viewOrderToggle}
+        allProductsSearchHandler={this.toolbarSearchOnChange}
+        allProductsSearchValue={this.state.toolbarSearchInput}
         />
       <div className="main-card">
       {
         this.state.activeContent === "" ? <LandingCards /> : null
       }
       {
-        this.state.activeContent === "viewProducts" ? <AllProducts /> : null
+        this.state.activeContent === "viewProducts" ?
+          <AllProducts
+            toolbarSearchValue={this.state.toolbarSearchInput}
+            toolbarSearchHandler={this.toolbarSearchOnChange}
+            />
+          : null
       }
       {
         this.state.activeContent === "viewOrder" ? <Order /> : null
