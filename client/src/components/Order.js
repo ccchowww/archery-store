@@ -57,7 +57,7 @@ class Order extends Component {
     }
 
     retrieveOrders = () => {
-        console.log("test git cred helper sex button pressed "+ this.props.orderUserPin)
+        console.log("sex button pressed "+ this.props.orderUserPin)
     }
 
     componentDidMount() {
