@@ -6,108 +6,22 @@ class Toolbar extends Component {
 
     render() {
         return (
-            <div style={{display: 'flex'}}>
-                <div style={{flexGrow: 1}}>
-                </div>
-                <div>
-                    <div>Selected: {this.props.selectedName}</div>
-                </div>
-            </div>
+            <div>Selected: {this.props.selectedName}</div>
         );
     }
 }
 
 
 class Order extends Component {
-    state = {
-        pin: "",
-        userPin: "",
-        bowItemId: "",
-        quantity: "",
-        message: "",
-        orderId: "",
-        bowItemName: ""
-    }
-
-    handleSelect = (_id, pin, bowItemName, bowItemId) => {
-        const pinNumber = parseInt(pin);
-        this.setState({
-            pin: pinNumber,
-            orderId: _id,
-            bowItemName: bowItemName,
-            bowItemId: bowItemId
-        });
-    }
-
-    handleChange = (e) => {
-        switch(e.target.name) {
-            case 'userPin':
-                if (e.target.value > 9999 || e.target.value < 0) {
-                    this.setState({
-                        [e.target.name]: ""
-                    })
-                    return (
-                        alert("Min-Max: 1-9999")   
-                    );
-                }
-                this.setState({
-                    [e.target.name]: e.target.value
-                });
-                return;
-            case 'pin':
-                if (e.target.value > 9999 || e.target.value < 0) {
-                    this.setState({
-                        [e.target.name]: ""
-                    })
-                    return (
-                        alert("Min-Max: 1-9999")   
-                    );
-                }
-                this.setState({
-                    [e.target.name]: e.target.value
-                })
-                return;
-            case 'quantity':
-                if (e.target.value > 100 || e.target.value < 0) {
-                    this.setState({
-                        [e.target.name]: ""
-                    })
-                    return ( alert("Min-Max: 1-100") )
-                }
-                this.setState({
-                    [e.target.name]: e.target.value
-                })
-                return;
-            case 'message':
-                if (e.target.value.length > 140) {
-                    const excessString = e.target.value;
-                    const trimmedString = excessString.substr(0,139);
-                    this.setState({
-                        [e.target.name]: trimmedString
-                    })
-                    return;
-                }
-                this.setState({
-                    [e.target.name]: e.target.value
-                })
-                return;
-            default:
-                this.setState({
-                    [e.target.name]: e.target.value
-                });
-                return;
-        }
-        
-    }
-
+    
     handleAddOrder = e => {
         e.preventDefault();
-        const pinNumber = parseInt(this.state.pin);
-        const quantityNumber = parseInt(this.state.quantity);
+        const pinNumber = parseInt(this.props.orderUserPin);
+        const quantityNumber = parseInt(this.props.orderQuantity);
         const newOrder = {
-            bowitem_id: this.state.bowItemId,
+            bowitem_id: this.props.selectedProductId,
             quantity: quantityNumber,
-            message: this.state.message,
+            message: this.props.orderMessage,
             pin: pinNumber
         }
         this.props.addOrder(newOrder);
@@ -115,13 +29,13 @@ class Order extends Component {
 
     handleUpdateOrder = e => {
         e.preventDefault();
-        const pinNumber = parseInt(this.state.pin);
-        const quantityNumber = parseInt(this.state.quantity);
+        const pinNumber = parseInt(this.props.orderPin);
+        const quantityNumber = parseInt(this.props.orderQuantity);
         const updatedOrder = {
-            _id: this.state.orderId,
-            bowitem_id: this.state.bowItemId,
+            _id: this.props.orderId,
+            bowitem_id: this.props.orderProductId,
             quantity: quantityNumber,
-            message: this.state.message,
+            message: this.props.orderMessage,
             pin: pinNumber
         }
         this.props.updateOrder(updatedOrder);
@@ -129,18 +43,21 @@ class Order extends Component {
 
     handleDeleteOrder = e => {
         e.preventDefault();
-        const pinNumber = parseInt(this.state.pin);
-        const userPinNumber = parseInt(this.state.userPin);
+        const pinNumber = parseInt(this.props.orderPin);
+        const userPinNumber = parseInt(this.props.orderUserPin);
         console.log(pinNumber, userPinNumber);
         if (pinNumber === userPinNumber) {
             const DeleteOrder = {
-                _id: this.state.orderId
+                _id: this.props.orderId
             };
-            console.log(DeleteOrder);
             this.props.deleteOrder(DeleteOrder);
         } else {
             alert('Pin does not match order');
         }
+    }
+
+    retrieveOrders = () => {
+        console.log("sex button pressed "+ this.props.orderUserPin)
     }
 
     componentDidMount() {
@@ -150,14 +67,30 @@ class Order extends Component {
     render() {
         const { orders, loading } = this.props.orders;
 
-        
+        const { orderId, orderPin, orderUserPin, orderMessage, orderQuantity, orderProductId, orderProductName } = this.props;
+        const { orderFormChangeHandler, orderSelectHandler } = this.props;
 
         return (
             <div>
                 <Toolbar 
-                    selectedName={this.state.bowItemName}
+                    selectedName={orderProductName}
                     />
                 <div>
+                    <div>
+                        <span>
+                            Retrieve Orders from this Pin: 
+                        </span>
+                        <span>
+                            <input type="number" placeholder="Pin between 1 - 9999"
+                                name="orderUserPin"
+                                onChange={orderFormChangeHandler}
+                                value={orderUserPin}
+                                />
+                        </span>
+                        <span>
+                            <input type="button" value="Retrieve" onClick={this.retrieveOrders}/>
+                        </span>
+                    </div>
                     {loading === true ? <h1>LOADING ORDERS AHH HH</h1> : null}
                     <ul>
                         {
@@ -165,7 +98,7 @@ class Order extends Component {
                             <li key={_id}>
                                 {"order id: "+ _id + " " + bowItem.name + " " + bowItem._id + " number: " + quantity + " "+ pin + " " + message}
                                 <input
-                                    onClick={this.handleSelect.bind(this, _id, pin, bowItem.name, bowItem._id)}
+                                    onClick={orderSelectHandler.bind(this, _id, pin, bowItem.name, bowItem._id)}
                                     type="button"
                                     value="Select"/>
                             </li>
@@ -177,15 +110,15 @@ class Order extends Component {
                     <form onSubmit={this.handleAddOrder}>
                         <label>
                             Pin:
-                            <input name="pin" type="number" value={this.state.pin} onChange={this.handleChange}/>
+                            <input name="orderUserPin" type="number" value={orderUserPin} onChange={orderFormChangeHandler}/>
                         </label>
                         <label>
                             Quantity:
-                            <input name="quantity" type="number" value={this.state.quantity} onChange={this.handleChange}/>
+                            <input name="orderQuantity" type="number" value={orderQuantity} onChange={orderFormChangeHandler}/>
                         </label>
                         <label>
                             Message:
-                            <textarea name="message" value={this.state.message} onChange={this.handleChange}/>
+                            <textarea name="orderMessage" value={orderMessage} onChange={orderFormChangeHandler}/>
                         </label>
                         <input type="submit" value="Add Order"/>
                     </form>
@@ -194,15 +127,15 @@ class Order extends Component {
                     <form onSubmit={this.handleUpdateOrder}>
                         <label>
                             Pin:
-                            <input name="pin" type="number" value={this.state.pin} onChange={this.handleChange}/>
+                            <input name="orderPin" type="number" value={orderPin} onChange={orderFormChangeHandler}/>
                         </label>
                         <label>
                             Quantity:
-                            <input name="quantity" type="number" value={this.state.quantity} onChange={this.handleChange}/>
+                            <input name="orderQuantity" type="number" value={orderQuantity} onChange={orderFormChangeHandler}/>
                         </label>
                         <label>
                             Message:
-                            <textarea name="message" value={this.state.message} onChange={this.handleChange}/>
+                            <textarea name="orderMessage" value={orderMessage} onChange={orderFormChangeHandler}/>
                         </label>
                         <input type="submit" value="Update Order"/>
                     </form>
@@ -211,7 +144,7 @@ class Order extends Component {
                     <form onSubmit={this.handleDeleteOrder}>
                         <label>
                             Pin:
-                            <input name="userPin" type="number" value={this.state.userPin} onChange={this.handleChange}/>
+                            <input name="orderUserPin" type="number" value={orderUserPin} onChange={orderFormChangeHandler}/>
                         </label>
                         <input type="submit" value="Delete Order"/>
                     </form>

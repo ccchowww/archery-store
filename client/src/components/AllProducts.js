@@ -4,23 +4,16 @@ import { getBowItems } from '../actions/bowItemActions';
 import '../App.css';
 
 
+
 class AllProducts extends Component {
 
     state = {
         filteredBowItems: [],
         manufacturer: '',
         archeryStyle: '',
-        selectedName: '',
-        selectedId: ''
     }
     
 
-    onSelect = (_id, name) => {
-        this.setState({
-            selectedName: name,
-            selectedId: _id
-        });
-    }
 
     
     componentDidMount() {
@@ -32,7 +25,9 @@ class AllProducts extends Component {
     render() {
         const toolbarSearchValue = this.props.toolbarSearchValue;
 
-
+        const selectProductHandler = this.props.selectProductHandler;
+        const selectedProductId= this.props.selectedProduct;
+        
         const { bowItems, loading } = this.props.bowItems;
         const filteredbowitems = [];
         const loadingIcon = () => {if (loading === true) {
@@ -48,13 +43,22 @@ class AllProducts extends Component {
                 return;
             }
             filteredbowitems.push(bowitem);
+
         })
 
+        const selectedStyle = {
+            backgroundColor: 'red'
+        }
         return (
             <div className="all-products-view-container">
             {loadingIcon()}
                 {filteredbowitems.map(({ _id, name, manufacturer, price, specs }) => (
-                    <span 
+                    <span
+                        style={
+                                _id === selectedProductId ?
+                                selectedStyle
+                                : null
+                        }
                         className='all-products-item'
                         key={_id}
                         >
@@ -68,7 +72,7 @@ class AllProducts extends Component {
                             {
 
                             }
-                        <input onClick={this.onSelect.bind(this, _id, name)} type="button" value="Select"/>        
+                        <input onClick={selectProductHandler.bind(this, _id, name)} type="button" value="Select"/>        
                         </span>
                     </span>
                 ))}

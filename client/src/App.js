@@ -15,12 +15,9 @@ class Topbar extends Component {
           <span className="topbar">
             <a className="topbar-item-left-link" href="">
               <span className="topbar-item-left">
-                  Github
+                  <span>Github</span>
               </span>
               </a>
-              <span style={{}}>
-                  
-              </span>
           </span>
       </div>
     );
@@ -68,6 +65,7 @@ class Toolbar extends Component {
                   name="toolbarSearchInput"
                   onChange={this.props.allProductsSearchHandler}
                   value={this.props.allProductsSearchValue}
+                  placeholder="Search..."
                   />
                   : <span className="toolbar-item-right"></span>
               }
@@ -105,7 +103,87 @@ class App extends Component {
     activeContent: "",
     viewProductsToggle: false,
     viewOrderToggle: false,
-    toolbarSearchInput: ""
+    toolbarSearchInput: "",
+    selectedProductName: '',
+    selectedProductId: '',
+    orderId: "",
+    orderPin: "",
+    orderUserPin: "",
+    orderProductId: "",
+    orderProductName: "",
+    orderQuantity: "",
+    orderMessage: ""
+  }
+
+  handleOrderSelect = (_id, pin, orderProductName, orderProductId) => {
+    const pinNumber = parseInt(pin);
+    this.setState({
+        orderPin: pinNumber,
+        orderId: _id,
+        orderProductName: orderProductName,
+        orderProductId: orderProductId
+    });
+  }
+
+  handleOrderFormChange = (e) => {
+    switch(e.target.name) {
+        case 'orderUserPin':
+            if (e.target.value > 9999 || e.target.value < 0) {
+                this.setState({
+                    [e.target.name]: ""
+                })
+                return (
+                    alert("Min-Max: 1-9999")   
+                );
+            }
+            this.setState({
+                [e.target.name]: e.target.value
+            });
+            return;
+        case 'userPin':
+            if (e.target.value > 9999 || e.target.value < 0) {
+                this.setState({
+                    [e.target.name]: ""
+                })
+                return (
+                    alert("Min-Max: 1-9999")   
+                );
+            }
+            this.setState({
+                [e.target.name]: e.target.value
+            })
+            return;
+        case 'orderQuantity':
+            if (e.target.value > 100 || e.target.value < 0) {
+                this.setState({
+                    [e.target.name]: ""
+                })
+                return ( alert("Min-Max: 1-100") )
+            }
+            this.setState({
+                [e.target.name]: e.target.value
+            })
+            return;
+        case 'orderMessage':
+            if (e.target.value.length > 140) {
+                const excessString = e.target.value;
+                const trimmedString = excessString.substr(0,139);
+                this.setState({
+                    [e.target.name]: trimmedString
+                })
+                return;
+            }
+            this.setState({
+                [e.target.name]: e.target.value
+            })
+            return;
+        default:
+            this.setState({
+                [e.target.name]: e.target.value
+            });
+            return;
+    }
+    
   }
 
   viewProducts = () => {
@@ -146,7 +224,29 @@ class App extends Component {
     });
   }
 
+  onProductSelect = (_id, name) => {
+    if (this.state.selectedProductId === "") {
+      this.setState({
+        selectedProductId: _id,
+        selectedProductName: name
+      })
+    } else if (this.state.selectedProductId === _id) {
+      this.setState({
+        selectedProductId: "",
+        selectedProductName: ""
+      })
+    } else {
+      this.setState({
+        selectedProductId: _id,
+        selectedProductName: name
+      })
+    }
+  }  
+
   render() {
+
+    const { orderId, orderPin, orderUserPin, orderMessage, orderQuantity, orderProductId, orderProductName} = this.state;
+
     return (
       <Provider store={store}>
       <div>
@@ -168,11 +268,27 @@ class App extends Component {
           <AllProducts
             toolbarSearchValue={this.state.toolbarSearchInput}
             toolbarSearchHandler={this.toolbarSearchOnChange}
+            selectProductHandler={this.onProductSelect}
+            selectedProduct={this.state.selectedProductId}
             />
           : null
       }
       {
-        this.state.activeContent === "viewOrder" ? <Order /> : null
+        this.state.activeContent === "viewOrder" ?
+          <Order 
+            orderFormChangeHandler={this.handleOrderFormChange}
+            orderSelectHandler={this.handleOrderSelect}
+            orderId={orderId}
+            orderPin={orderPin}
+            orderUserPin={orderUserPin}
+            orderMessage={orderMessage}
+            orderQuantity={orderQuantity}
+            orderProductId={orderProductId}
+            orderProductName={orderProductName}
+            selectedProductId={this.state.selectedProductId}
+            selectedProductName={this.state.selectedProductName}
+            />
+          : null
       }
       </div>
         
