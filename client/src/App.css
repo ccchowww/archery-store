@@ -100,3 +100,30 @@ html, body {
   margin: 2vh 1.5vh 3vh 1.5vh;
   box-shadow: 0px 0px 16px 0 rgba(0,0,0,0.2);
 }
+
+.all-products-view-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+
+
+.all-products-item {
+  display: flex;
+  width: 25vh;
+  padding: 2vh;
+  margin: 1vh;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.all-products-item-img {
+  width: 50%;
+}
+
+.all-products-item-info {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 1vh;
+  align-items: center;
+}

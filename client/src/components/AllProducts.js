@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getBowItems } from '../actions/bowItemActions';
+import '../App.css';
 
 
 class AllProducts extends Component {
@@ -50,21 +51,27 @@ class AllProducts extends Component {
         })
 
         return (
-            <div>
+            <div className="all-products-view-container">
             {loadingIcon()}
-            <ul style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', listStyle: 'none'}}>
+                {filteredbowitems.map(({ _id, name, manufacturer, price, specs }) => (
+                    <span 
+                        className='all-products-item'
+                        key={_id}
+                        >
+                        <span className="all-products-item-img">
+                            <img style={{}} src='https://picsum.photos/80/180' />
+                        </span>
+                        <span className="all-products-item-info">
+                            <span>{name}</span>
+                            <span>{manufacturer}</span>
+                            <span>{price}</span>
+                            {
 
-            {filteredbowitems.map(({ _id, name, manufacturer, price }) => (
-                
-                <li style={{display: 'flex', width: '30%', padding: '10px', alignItems: 'flex-start'}}
-                    className='item'
-                    key={_id}>
-                        <img style={{}} src='https://picsum.photos/80/180' />
-                            {name + " "+ price + " $"}<br/>{manufacturer}<br/>{_id}
-                    <input onClick={this.onSelect.bind(this, _id, name)} type="button" value="Select"/>        
-                </li>
-            ))}
-            </ul>
+                            }
+                        <input onClick={this.onSelect.bind(this, _id, name)} type="button" value="Select"/>        
+                        </span>
+                    </span>
+                ))}
             </div>
         );
         
