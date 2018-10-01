@@ -10,6 +10,13 @@ router.get('/', (req, res, next) => {
         .then(order => res.json(order));
 })
 
+router.get('/pin/:pin', (req, res, next) => {
+    Order
+        .find({pin: req.params.pin})
+        .populate('bowItem')
+        .then(order => res.json(order));
+})
+
 
 router.post('/post', (req, res, next) => {
     let NewOrder = new Order(
@@ -22,6 +29,7 @@ router.post('/post', (req, res, next) => {
     );
     NewOrder
         .save(function(err, savedOrder) {
+            if (err) {return console.log(err);}
             savedOrder.populate('bowItem', function(err, theorder) {
                 res.send(theorder);
             })

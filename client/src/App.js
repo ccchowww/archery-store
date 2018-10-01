@@ -106,6 +106,8 @@ class App extends Component {
     toolbarSearchInput: "",
     selectedProductName: '',
     selectedProductId: '',
+    selectedProductManufacturer: '',
+    selectedProductPrice: '',
     orderId: "",
     orderPin: "",
     orderUserPin: "",
@@ -224,11 +226,13 @@ class App extends Component {
     });
   }
 
-  onProductSelect = (_id, name) => {
+  onProductSelect = (_id, name, manufacturer, price) => {
     if (this.state.selectedProductId === "") {
       this.setState({
         selectedProductId: _id,
-        selectedProductName: name
+        selectedProductName: name,
+        selectedProductManufacturer: manufacturer,
+        selectedProductPrice: price
       })
     } else if (this.state.selectedProductId === _id) {
       this.setState({
@@ -238,7 +242,9 @@ class App extends Component {
     } else {
       this.setState({
         selectedProductId: _id,
-        selectedProductName: name
+        selectedProductName: name,
+        selectedProductManufacturer: manufacturer,
+        selectedProductPrice: price
       })
     }
   }  
@@ -287,6 +293,8 @@ class App extends Component {
             orderProductName={orderProductName}
             selectedProductId={this.state.selectedProductId}
             selectedProductName={this.state.selectedProductName}
+            selectedProductManufacturer={this.state.selectedProductManufacturer}
+            selectedProductPrice={this.state.selectedProductPrice}
             />
           : null
       }

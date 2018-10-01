@@ -1,9 +1,9 @@
 import { GET_ORDERS, UPDATE_ORDER, ADD_ORDER, DELETE_ORDER, ORDERS_LOADING } from './types';
 import axios from 'axios';
 
-export const getOrders = () => dispatch => {
+export const getOrders = pin => dispatch => {
     dispatch(setOrdersLoading());
-    axios.get('/api/order')
+    axios.get(`/api/order/pin/${pin}`)
          .then(res => dispatch ({
              type: GET_ORDERS,
              payload: res.data

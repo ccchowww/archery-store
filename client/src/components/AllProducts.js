@@ -17,7 +17,10 @@ class AllProducts extends Component {
 
     
     componentDidMount() {
-        this.props.getBowItems()
+        console.log(this.props.bowItems.bowItems.length);
+        this.props.bowItems.bowItems.length === 0 ?
+            this.props.getBowItems()
+            : null
     }
 
     
@@ -63,7 +66,7 @@ class AllProducts extends Component {
                         key={_id}
                         >
                         <span className="all-products-item-img">
-                            <img style={{}} src='https://picsum.photos/80/180' />
+                            <img src='https://picsum.photos/80/180' />
                         </span>
                         <span className="all-products-item-info">
                             <span>{name}</span>
@@ -72,7 +75,7 @@ class AllProducts extends Component {
                             {
 
                             }
-                        <input onClick={selectProductHandler.bind(this, _id, name)} type="button" value="Select"/>        
+                        <input onClick={selectProductHandler.bind(this, _id, name, manufacturer, price)} type="button" value="Select"/>        
                         </span>
                     </span>
                 ))}
