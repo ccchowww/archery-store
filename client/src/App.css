@@ -3,7 +3,7 @@ html, body {
   height: 100vh;
   font-family: 'Roboto';
   font-size: 14px;
-  /* overflow-y: scroll; */
+  overflow-y: scroll;
 }
 
 .card {
