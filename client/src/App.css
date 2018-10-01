@@ -3,6 +3,7 @@ html, body {
   height: 100vh;
   font-family: 'Roboto';
   font-size: 14px;
+  /* overflow-y: scroll; */
 }
 
 .card {
@@ -164,22 +165,102 @@ html, body {
   box-shadow: 0 2px 6px 0 rgba(0,0,0,0.4);
 }
 
-.selected-thing-card {
-  position: fixed;
-  top: 30vh;
-  left: 5vw;
+@media only screen and (min-width: 768px) {
+  .order-view-main-container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 100%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .order-view-main-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+
+.order-view-left-container {
   display: flex;
   flex-direction: column;
-  height: 40vh;
-  width: 25vw;
+  /* margin-left: 25%; */
+  /* margin-bottom: 5vw; */
+  align-items: center;
+  min-height: 100%;
+}
+
+.order-view-left-card {
+  width: 80%;
+  height: 30em;
+}
+
+.order-view-left-form {
+  display: flex;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  flex-direction: column;
+  height: inherit;
+  justify-content: flex-start;
+}
+
+.order-view-left-form-item {
+  margin-top: 5%;
+  margin-left: 5%;
+}
+
+.order-view-left-form-input {
+  /* height: 30%; */
+  width: 60%;
+}
+
+.order-view-submit {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.order-view-submit-button {
+  width: 60%;
+}
+
+.order-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.order-list-card {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1vw;
+  /* margin-top: 2vh; */
+  /* margin-left: 5vw; */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   background-color: rgb(247, 247, 247);
-  margin-left: 2vh;
+  width: 80%;
 }
 
-.selected-thing-card-img {
-
+.order-list-item {
+  margin-top: 3vh;
+  margin-left: 3vh;
+  margin-right: 3vh;
+  word-wrap: break-word;
 }
 
-.selected-thing-card-info {
+.order-list-item-message {
+  /* margin-top: 3vh; */
+  /* margin-bottom: 1vh; */
+  margin-left: 3vh;
+  margin-right: 3vh;
+  word-wrap: break-word;
+}
 
+.order-list-item-button {
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+  height: 5vh;
+  width: 50%;
+  align-self: center;
 }

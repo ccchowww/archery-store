@@ -13,7 +13,7 @@ class Topbar extends Component {
     return (
       <div>
           <span className="topbar">
-            <a className="topbar-item-left-link" href="">
+            <a className="topbar-item-left-link" href="https://github.com/ccchowww/archery-store">
               <span className="topbar-item-left">
                   <span>Github</span>
               </span>
@@ -101,6 +101,7 @@ class LandingCards extends Component {
 class App extends Component {
   state = {
     activeContent: "",
+    activeTab: "get",
     viewProductsToggle: false,
     viewOrderToggle: false,
     toolbarSearchInput: "",
@@ -247,7 +248,31 @@ class App extends Component {
         selectedProductPrice: price
       })
     }
-  }  
+  }
+
+  getOrderView = () => {
+    this.setState({
+        activeTab: "get"
+    })
+  }
+
+  addOrderView = () => {
+      this.setState({
+          activeTab: "add"
+      })
+  }
+
+  editOrderView = () => {
+      this.setState({
+          activeTab: "edit"
+      })
+  }
+
+  deleteOrderView = () => {
+      this.setState({
+          activeTab: "delete"
+      })
+  }
 
   render() {
 
@@ -295,6 +320,11 @@ class App extends Component {
             selectedProductName={this.state.selectedProductName}
             selectedProductManufacturer={this.state.selectedProductManufacturer}
             selectedProductPrice={this.state.selectedProductPrice}
+            getOrderView={this.getOrderView}
+            addOrderView={this.addOrderView}
+            editOrderView={this.editOrderView}
+            deleteOrderView={this.deleteOrderView}
+            activeTab={this.state.activeTab}
             />
           : null
       }
