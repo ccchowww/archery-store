@@ -6,20 +6,20 @@ import '../App.css';
 class Toolbar extends Component {
     render() {
         let productsStyle = null;
-        let ordersStyle = {
-          borderBottom: '2px solid rgb(0, 255, 255)'
-        };
+        let ordersStyle = {};
 
         let productsCrossStyle = {};
         let ordersCrossStyle = {};
   
         if (this.props.viewProductsToggleState === true) {
           productsStyle = {
-            color: 'rgb(71, 104, 126)'
+            color: 'rgb(252, 252, 252)',
+            textShadow: '0px 1px 2px rgba(0,0,0,0.3)'
           }
           productsCrossStyle = {
               visibility: 'visible',
-              color: 'rgb(23, 48, 65)'
+              color: 'rgb(252, 252, 252)',
+              textShadow: '0px 1px 2px rgba(0,0,0,0.3)'
           }
 
         } else {
@@ -31,12 +31,13 @@ class Toolbar extends Component {
         
         if (this.props.viewOrdersToggleState === true) {
           ordersStyle = {
-            // fontWeight: 600,
-            color: 'rgb(71, 104, 126)'
+            color: 'rgb(252, 252, 252)',
+            textShadow: '0px 1px 2px rgba(0,0,0,0.3)'
           }
           ordersCrossStyle = {
               visibility: 'visible',
-              color: 'rgb(23, 48, 65)'
+              color: 'rgb(252, 252, 252)',
+              textShadow: '0px 1px 2px rgba(0,0,0,0.3)'
           }
         } else {
           ordersStyle = null;

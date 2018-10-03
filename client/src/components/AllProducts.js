@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getBowItems, openPopup } from '../actions/bowItemActions';
 import '../App.css';
-import Popup from './Popup';
 
 
 
@@ -26,12 +25,6 @@ class AllProducts extends Component {
         this.props.openPopup(popupState.toString());
         this.props.selectProductHandler(_id, name, manufacturer, price)
     }
-
-    openPopup = () => {
-        const popupState = this.props.bowItems.popupState;
-
-        this.props.openPopup(popupState.toString());
-        }
 
     render() {
         const toolbarSearchValue = this.props.toolbarSearchValue;
@@ -58,8 +51,10 @@ class AllProducts extends Component {
         })
 
         const selectedStyle = {
-            boxShadow: '0 4px 12px 0 rgba(0,0,0,0.3)',
-            backgroundColor: 'rgb(252, 252, 252)'
+            boxShadow: '0 4px 14px 0 rgba(0,0,0,0.4)',
+            backgroundColor: 'rgba(0, 183, 255, 0.8)',
+            color: 'white',
+            fontWeight: 500
         }
 
         const keyByIndex = (obj, index) => {
@@ -145,12 +140,10 @@ class AllProducts extends Component {
                 ))}
                 {
                     this.props.bowItems.popupState === true ?
-                    // true ?
                     <span className="selected-popup-container">
                             <input 
                                 className="selected-popup-item"
-                                readOnly={true}
-                                autoFocus={true}
+                                disabled={true}
                                 type="text"
                                 value={
                                     this.props.selectedProductName !== "" ?
@@ -161,10 +154,6 @@ class AllProducts extends Component {
                     </span>
                     : null
                 }
-                {/* // (this.props.selectedProductName !== "") ?
-                                    // this.props.selectedProductName
-                                    // : "(None)"
-                                    // } */}
             </div>
         );
         

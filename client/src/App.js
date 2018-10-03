@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import store from './store';
 import AllProducts from './components/AllProducts';
 import Order from './components/Order';
-import Landing from './components/Landing';
 import Topbar from './components/Topbar';
 import Toolbar from './components/Toolbar';
 
@@ -48,7 +47,8 @@ class App extends Component {
     orderProductId: "",
     orderProductName: "",
     orderQuantity: "",
-    orderMessage: ""
+    orderMessage: "",
+    popupState: false
   }
 
   localeChange = (e) => {
@@ -233,7 +233,24 @@ class App extends Component {
       })
   }
 
-  
+  openPopup = () => {
+    this.setState({
+      popupState: true
+    })
+  }
+
+  closePopup = () => {
+    this.setState({
+      popupState: false
+    })
+  }
+
+  // selectAndOpenPopup = (_id, name, manufacturer, price) => {
+  //   const popupState = this.props.bowItems.popupState;
+
+  //   this.props.openPopup(popupState.toString());
+  //   this.onProductSelect(_id, name, manufacturer, price)
+  // }
 
 
   render() {
@@ -291,11 +308,11 @@ class App extends Component {
             toolbarSearchValue={this.state.toolbarSearchInput}
             toolbarSearchHandler={this.toolbarSearchOnChange}
             selectProductHandler={this.onProductSelect}
+            // selectAndOpenPopup={this.selectAndOpenPopup}
             selectedProduct={this.state.selectedProductId}
             selectedProductName={this.state.selectedProductName}
-            popupState={this.state.popupState}
-            popupCounter={this.state.popupCounter}
-            incrementPopupCounter={this.incrementPopupCounter}
+            openPopup={this.openPopup}
+            closePopup={this.closePopup}
             />
           : null
       }
@@ -325,10 +342,34 @@ class App extends Component {
           : null
       }
       </div>
+      {
+                    this.state.popupState === true ?
+                    <span className="selected-popup-container">
+                            <input 
+                                className="selected-popup-item"
+                                readOnly={true}
+                                autoFocus={true}
+                                type="text"
+                                value={
+                                    this.props.selectedProductName !== "" ?
+                                    "Selected Product: "+this.props.selectedProductName
+                                    : "Selected Product: (None)"
+                                }
+                                />
+                    </span>
+                    : null
+                }
       </div>
       </Provider>
     );
   }
 }
 
+
+// const mapStateToProps = (state) => ({
+//   bowItems: state.bowItems
+// })
+
+
+// export default connect(mapStateToProps, { openPopup })(App);
 export default App;
