@@ -1,53 +1,85 @@
 import React, { Component } from 'react';
+import '../App.css';
 
 
-class Toolbar extends Component {
 
-    render() {
-        return (
-            <div style={{display: 'flex', justifyContent: 'center'}}>
-                <span>
-                    {this.props.description}
-                </span>
-            </div>
-        );
-    }
-}
 
 class Landing extends Component {
-
-    handleClick = (e) => {
-        console.log("sex");
-        console.log(e.target.name);
-    }
-
     render() {
-        const description = "Archery store - add, edit, delete or retrieve your orders!"
         return (
             <div>
-                <Toolbar description={description}/>
-                <div style={{display: 'flex'}}>
-                    <span onClick={this.handleAllClick}>
-                        <a>
-                        <img src='https://picsum.photos/300/100' />
-'                       <p>All Products</p>
-                        </a>
-                    </span>
-                    <span onClick={this.handleArcheryStyleClick}>
-                        <a>
-                        <img src='https://picsum.photos/300/100' />
-'                       <p>Products sorted by Archery Style</p>
-                        </a>
-                    </span>
-                    <span onClick={this.handleManufacturerClick}>
-                        <a>
-                        <img src='https://picsum.photos/300/100' />
-'                       <p>Products sorted by Manufacturer</p>
-                        </a>
-                    </span>
-                </div>
+            <div className="landing-input-container-1">
+                <input
+                    className="landing-input-1"
+                    disabled={true}
+                    value="Archery store"
+                    />
             </div>
-        );
+            <div className="landing-input-container-2">
+                <input
+                    className="landing-input-2"
+                    disabled={true}
+                    value="- Get, Add, Edit and Delete Orders."
+                    />
+            </div>
+            <div className="landing-input-container-3">
+                <input
+                    className="landing-input-3"
+                    disabled={true}
+                    value="- Built with {"
+                    />
+            </div>
+            <div className="landing-input-container-4">
+                <input
+                    className="landing-input-4"
+                    disabled={true}
+                    value="Mongoose,"
+                    />
+            </div>
+            <div className="landing-input-container-5">
+                <input
+                    className="landing-input-5"
+                    disabled={true}
+                    value="Express,"
+                    />
+            </div>
+            <div className="landing-input-container-6">
+                <input
+                    className="landing-input-6"
+                    disabled={true}
+                    value="React,"
+                    />
+            </div>
+            <div className="landing-input-container-7">
+                <input
+                    className="landing-input-7"
+                    disabled={true}
+                    value="Node"
+                    />
+            </div>
+            <div className="landing-input-container-8">
+                <input
+                    className="landing-input-8"
+                    disabled={true}
+                    value="};"
+                    />
+            </div>
+            <div className="landing-input-container-9">
+                <input
+                    className="landing-input-9"
+                    disabled={true}
+                    value="- and over 900 lines of CSS."
+                    />
+            </div>
+            <div className="landing-input-container-10">
+                <input
+                    className="landing-input-10"
+                    disabled={true}
+                    value="..."
+                    />
+            </div>
+        </div>
+            );
     }
 }
 

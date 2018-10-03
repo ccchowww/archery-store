@@ -38,17 +38,12 @@ class Order extends Component {
 
     handleDeleteOrder = e => {
         e.preventDefault();
-        const pinNumber = parseInt(this.props.orderPin);
-        const userPinNumber = parseInt(this.props.orderUserPin);
-        console.log(pinNumber, userPinNumber);
-        if (pinNumber === userPinNumber) {
-            const DeleteOrder = {
-                _id: this.props.orderId
-            };
-            this.props.deleteOrder(DeleteOrder);
-        } else {
-            alert('Pin does not match order');
-        }
+        // const pinNumber = parseInt(this.props.orderPin);
+        // const userPinNumber = parseInt(this.props.orderUserPin);
+        const DeleteOrder = {
+            _id: this.props.orderId
+        };
+        this.props.deleteOrder(DeleteOrder);
     }
 
     retrieveOrders = e => {
@@ -91,7 +86,6 @@ class Order extends Component {
         const selectedStylePin = {
             webkitTransition: 'color 0.4s ease-in-out',
             transition: 'color 0.4s ease-in-out',
-            color: 'rgb(68, 0, 255)',
             borderBottom: '1px solid rgba(68, 0, 255, 0.9)'
         }
 
@@ -100,11 +94,12 @@ class Order extends Component {
         }
 
         const orderValidTitleStyle = {
-            color: 'green'
+            color: 'rgb(0, 200, 255)'
         }
         const orderValidTextStyle = {
-            color: 'green',
-            borderBottom: '1px solid green'
+            borderBottom: '1px solid rgb(0, 200, 255)',
+            textShadow: '0px 1px 2px rgba(0,0,0,0.2)',
+            width: '100%'
         }
 
         const tabSelectedStyle = {
@@ -156,8 +151,6 @@ class Order extends Component {
                 </span>
                 <div className="order-view-main-container">
                     <div className="order-view-left-container">
-                    {/* <span className="order-view-left-card-indicator"> */}
-                    {/* </span> */}
                         {
                             this.props.activeTab === "get" ?
                                 <span className="order-view-left-card">
@@ -170,6 +163,11 @@ class Order extends Component {
                                         </span>
                                         <span className="order-view-left-form-item">
                                             <input
+                                                style={
+                                                    (orderUserPin !== "") ?
+                                                    orderValidTextStyle
+                                                    : null
+                                                }
                                                 className="order-view-left-form-input" 
                                                 type="number" placeholder="Pin between 1 - 9999"
                                                 name="orderUserPin"
@@ -177,15 +175,26 @@ class Order extends Component {
                                                 value={orderUserPin}
                                                 />
                                         </span>
-                                        <span className="order-view-left-form-input-note">
+                                        <span className="order-view-left-form-input-note order-view-left-form-last-item-value">
                                             *Leave empty to get ALL orders.
                                         </span>
                                         <span className="order-view-left-form-last">
                                             <input
-                                                className="order-view-submit-button" type="submit" value="Retrieve Order(s)" />
+                                                style={
+                                                    (orderUserPin !== "") ?
+                                                    {width: '110%'}
+                                                    : null
+                                                }
+                                                className="order-view-submit-button"
+                                                type="submit"
+                                                value={
+                                                    (loading === true) ?
+                                                    "Retrieving..."
+                                                    : "Retrieve Order(s)"
+                                                }
+                                                />
                                         </span>
                                     </form>
-                                    {loading === true ? <h1>LOADING ORDERS AHH HH</h1> : null}
                                 </span>
                                 : null
                         }
@@ -245,31 +254,31 @@ class Order extends Component {
                                             className="order-view-left-form-item-textarea" 
                                             name="orderMessage" value={orderMessage} onChange={orderFormChangeHandler}/>
                                     </span>
-                                    <span className="order-view-left-form-last">
-                                        <span style={selectedProductName === "" ? {color: 'red'} : null}
-                                            className="order-view-left-form-last-item"
-                                            >
-                                                Selected Product:
-                                        </span>
-                                        <span
-                                            style={
-                                                (orderUserPin && orderQuantity && orderMessage && selectedProductName !== "") ?
-                                                orderValidTitleStyle
-                                                : null
-                                            } 
-                                            className="order-view-left-form-last-item order-view-left-form-last-item-value">
-                                            {selectedProductName === "" ? <span style={{marginLeft: 0}} className="order-view-left-form-input-note">*Select a product from View Products</span> : selectedProductName}
-                                        </span>
-                                        <input disabled={
+                                    <span style={selectedProductName === "" ? {color: 'red'} : null}
+                                        className="order-view-left-form-item"
+                                        >
+                                            Selected Product:
+                                    </span>
+                                    <span
+                                        className="order-view-left-form-last-item order-view-left-form-last-item-value">
+                                        {selectedProductName === "" ?
+                                            <span 
+                                                className="order-view-left-form-input-note"
+                                                >
+                                                    *Select a product from View Products
+                                                </span>
+                                            : selectedProductName}
+                                    </span>
+                                    <input disabled={
                                             (orderUserPin && orderQuantity && orderMessage && selectedProductName !== "") ? null : true
                                             }
-                                            style={
-                                                (orderUserPin && orderQuantity && orderMessage && selectedProductName !== "") ?
-                                                {width: '110%'}
-                                                : null
+                                        style={
+                                            (orderUserPin && orderQuantity && orderMessage && selectedProductName !== "") ?
+                                            {width: '110%'}
+                                            : null
                                             }
-                                            className="order-view-submit-button" type="submit" value="Add Order"/>
-                                    </span>
+                                        className="order-view-submit-button" type="submit" value="Add Order"
+                                        />
                                 </form>
                             </span>
                             : null
@@ -286,8 +295,13 @@ class Order extends Component {
                                     </span>
                                     <span className="order-view-left-form-item">
                                         <input 
+                                            style={
+                                                (orderPin && orderQuantity && orderMessage && selectedProductName !== "") ?
+                                                orderValidTextStyle
+                                                : null
+                                            }
                                             className="order-view-left-form-input"
-                                            placeholder="Pin from Selected Order"
+                                            placeholder="Select your Order"
                                             name="orderPin" type="number" value={orderPin} disabled={true}/>
                                     </span>
                                     <span style={orderQuantity === "" ? {color: 'red'} : null}
@@ -295,7 +309,12 @@ class Order extends Component {
                                         Quantity:
                                     </span>
                                     <span className="order-view-left-form-item">
-                                        <input 
+                                        <input
+                                            style={
+                                                (orderUserPin && orderQuantity && orderMessage && selectedProductName !== "") ?
+                                                orderValidTextStyle
+                                                : null
+                                            }
                                             className="order-view-left-form-input"
                                             placeholder="1 - 100"
                                             name="orderQuantity" type="number" value={orderQuantity} onChange={orderFormChangeHandler}/>
@@ -305,29 +324,41 @@ class Order extends Component {
                                         Message:
                                     </span>
                                     <span className="order-view-left-form-item">
-                                        <textarea 
+                                        <textarea
+                                            style={
+                                                (orderUserPin && orderQuantity && orderMessage && selectedProductName !== "") ?
+                                                orderValidTextStyle
+                                                : null
+                                            }
                                             rows="6"
                                             placeholder="140 Character Limit"
                                             className="order-view-left-form-item-textarea"
                                             name="orderMessage" value={orderMessage} onChange={orderFormChangeHandler}/>
                                     </span>
-                                    <span className="order-view-left-form-last">
-                                        <span style={selectedProductName === "" ? {color: 'red'} : null} className="order-view-left-form-last-item">
-                                            Selected Product:
-                                        </span>
-                                        <span className="order-view-left-form-last-item order-view-left-form-last-item-value">
-                                            {selectedProductName === "" ? <span style={{marginLeft: 0}} className="order-view-left-form-input-note">*Select a product from View Products</span> : selectedProductName}
-                                        </span>
-                                        <input disabled={
+                                    <span
+                                        style={selectedProductName === "" ? {color: 'red'} : null}
+                                        className="order-view-left-form-item">
+                                        Selected Product:
+                                    </span>
+                                    <span
+                                        className="order-view-left-form-last-item order-view-left-form-last-item-value">
+                                        {
+                                            selectedProductName === "" ?
+                                            <span className="order-view-left-form-input-note">
+                                                *Select a product from View Products
+                                            </span>
+                                            : selectedProductName
+                                        }
+                                    </span>
+                                    <input disabled={
                                             (orderPin && orderQuantity && orderMessage && selectedProductName !== "") ? null : true
                                         }
-                                            style={
-                                                (orderPin && orderQuantity && orderMessage && selectedProductName !== "") ?
-                                                {width: '110%'}
-                                                : null
-                                            }
-                                            className="order-view-submit-button" type="submit" value="Update Order"/>
-                                    </span>
+                                        style={
+                                            (orderPin && orderQuantity && orderMessage && selectedProductName !== "") ?
+                                            {width: '110%'}
+                                            : null
+                                        }
+                                        className="order-view-submit-button" type="submit" value="Update Order"/>
                                 </form>
                             </span>
                             : null
@@ -344,11 +375,11 @@ class Order extends Component {
                                     </span>
                                     <span className="order-view-left-form-item">
                                         <input
-                                            placeholder="Pin from Selected Order"
+                                            placeholder="Select your Order"
                                             className="order-view-left-form-input"
                                             name="orderUserPin" type="number" value={orderPin} disabled={true}/>
                                     </span>
-                                    <span className="order-view-left-form-input-note">
+                                    <span className="order-view-left-form-last-item order-view-left-form-last-item-value order-view-left-form-input-note">
                                         *Delete selected order. Requires Pin.
                                     </span>
                                     <span className="order-view-left-form-last">

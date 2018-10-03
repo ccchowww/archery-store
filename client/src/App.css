@@ -27,12 +27,13 @@
 }
 
 .selected-popup-item:disabled {
-  background-color: rgba(0, 183, 255, 0.85);
+  background-color: rgb(0, 183, 255);
   color: white;
-  border-radius: 4px;
+  border-radius: 3px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
   font-size: 1.3rem;
-  font-weight: 600;
-  height: 2rem;
+  padding-bottom: 0.3rem;
+  font-weight: 500;
   width: 70%;
   border: none;
   outline: none;
@@ -62,6 +63,7 @@
   font-family: 'Roboto'
 }
 
+input, select, textarea, button{font-family:inherit;}
 
 
 .card {
@@ -237,7 +239,7 @@
 }
 
 .main-card {
-  min-height: 83vh;
+  min-height: 80vh;
   margin: 2vw 2vw 3vw 2vw;
   box-shadow: 0px 0px 16px 0 rgba(0,0,0,0.2);
 }
@@ -376,40 +378,15 @@ input:disabled {
 .order-view-left-container {
   display: flex;
   flex-direction: column;
-  /* margin-left: 25%; */
-  /* margin-bottom: 5vw; */
   align-items: center;
-  /* height: 100%; */
   box-sizing: border-box;
 }
 
 .order-view-left-card {
   margin-top: 3vh;
-  /* box-sizing: border-box; */
-  /* border-top: 3vh solid rgba(0,0,0,0); */
   width: 40vmax;
   height: 60vh;
   background-color: rgb(247, 247, 247);
-}
-
-.order-view-left-card-indicator {
-  height: 1vh;
-  margin-top: 1vh;
-  width: 40vmax;
-  background-color: rgba(0, 255, 13, 0.8);
-  border-radius : 1px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  visibility: hidden;
-}
-
-.order-view-right-card-indicator {
-  height: 1vh;
-  margin-top: 1vh;
-  width: 40vmax;
-  background-color: rgba(0, 255, 13, 0.8);
-  border-radius : 1px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  visibility: hidden;
 }
 
 .order-view-left-form {
@@ -424,13 +401,14 @@ input:disabled {
 .order-view-left-form-item {
   margin-top: 0.7rem;
   margin-left: 0.7rem;
+  margin-right: 0.7rem;
 }
 
 .order-view-left-form-input {
   width: 50%;
   background-color: rgba(0,0,0,0);
   border: none;
-  border-bottom: 2px solid rgba(0,0,0,0.2);
+  border-bottom: 1px solid rgba(0,0,0,0.3);
   outline: none;
   -webkit-transition: width 0.4s ease-in-out;
   transition: width 0.4s ease-in-out;
@@ -438,18 +416,19 @@ input:disabled {
 
 .order-view-left-form-input:focus {
   width: 80%;
-  border-bottom: 2px solid rgba(0,0,0,0.8);
+  border-bottom: 1px solid rgba(0,0,0,0.8);
 }
 
 .order-view-left-form-input:disabled {
   background-color: rgba(0,0,0,0);
+  border-bottom: 1px solid rgba(0,0,0,0.3);
   color: inherit;
 }
 
 .order-view-left-form-input-note {
   color: rgba(0,0,0,0.3);
   margin-top: 0.7rem;
-  margin-left: 1.4rem;
+  margin-right: 0.7rem;
 }
 
 .order-view-left-form-last {
@@ -462,7 +441,6 @@ input:disabled {
 .order-view-left-form-last-item {
   margin-top: 0.7rem;
   margin-left: 0.7rem;
-  /* margin-bottom: 1rem; */
   height: 1rem;
 }
 
@@ -496,9 +474,10 @@ input:disabled {
 .order-view-left-form-item-textarea {
   width: 50%;
   resize: none;
+  padding: 0;
   background-color: rgba(0,0,0,0);
   border: none;
-  border-bottom: 2px solid rgba(0,0,0,0.2);
+  border-bottom: 1px solid rgba(0,0,0,0.3);
   outline: none;
   -webkit-transition: width 0.4s ease-in-out;
   transition: width 0.4s ease-in-out;
@@ -508,7 +487,7 @@ input:disabled {
 .order-view-left-form-item-textarea:focus {
   width: 80%;
   background-color: rgba(0,0,0,0);
-  border-bottom: 2px solid rgba(0,0,0,0.5);
+  border-bottom: 1px solid rgba(0,0,0,0.8);
 }
 
 .order-right-container {
@@ -573,6 +552,438 @@ input:disabled {
   transition: width 0.3s ease-in-out;
 }
 
-/* .order-list-item-button:hover {
-  width: 110%;
-} */
+.landing-input-container-1 {
+  display: flex;
+  /* margin-top: 3vh; */
+  margin-left: 10%;
+}
+
+@media only screen and (min-width: 600px) {
+  .landing-input-container-1 {
+    display: flex;
+    margin-left: 20%;
+  }
+}
+
+.landing-input-1:disabled {
+  margin-top: 3vh;
+  border: none;
+  outline: none;
+  /* border-right: 0.5rem solid rgb(238, 157, 0); */
+  background-color: rgba(0,0,0,0);
+  font-family: "Roboto Mono";
+  font-size: 2rem;
+  text-shadow: 0 2px 3px rgba(0,0,0,0.3);
+  letter-spacing: 0.25rem;
+  color: rgb(23, 48, 65);
+  overflow: hidden;
+  width: 20rem;
+  animation-name: line-1-striptease;
+  animation-duration: 1s;
+  animation-timing-function: steps(14, start)
+}
+
+@keyframes line-1-striptease {
+  from {
+    width: 0;
+    border-right: 0.5rem solid rgb(238, 157, 0);
+  }
+  99% {
+    border-right: 0.5rem solid rgb(238, 157, 0);
+  }
+  to {
+    width: 20rem;
+    border-right: none;
+  }
+}
+
+.landing-input-container-2 {
+  display: flex;
+  margin-left: 10.5%;
+}
+
+@media only screen and (min-width: 600px) {
+  .landing-input-container-2 {
+    display: flex;
+    margin-left: 25%;
+  }
+}
+
+.landing-input-2:disabled {
+  margin-top: 3vh;
+  border: none;
+  outline: none;
+  /* border-right: 0.5rem solid rgb(238, 157, 0); */
+  font-family: "Roboto Mono";
+  background-color: rgba(0,0,0,0);
+  text-shadow: 0 2px 3px rgba(0,0,0,0.3);
+  font-size: 1.3rem;
+  color: rgb(49, 100, 133);
+  width: 0;
+  animation-name: line-2-striptease;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+  animation-duration: 1.4s;
+  animation-timing-function: steps(35, start)
+}
+
+@keyframes line-2-striptease {
+  from {
+    width: 0;
+    border-right: 0.5rem solid rgb(238, 157, 0);
+  }
+  99% {
+    border-right: 0.5rem solid rgb(238, 157, 0);
+  }
+  to {
+    width: 27rem;
+    border-right: none;
+  }
+}
+
+.landing-input-container-3 {
+  display: flex;
+  margin-left: 10.5%;
+}
+
+@media only screen and (min-width: 600px) {
+  .landing-input-container-3 {
+    display: flex;
+    margin-left: 25%;
+  }
+}
+
+
+.landing-input-3:disabled {
+  margin-top: 3vh;
+  border: none;
+  outline: none;
+  font-family: "Roboto Mono";
+  background-color: rgba(0,0,0,0);
+  text-shadow: 0 2px 3px rgba(0,0,0,0.3);
+  font-size: 1.3rem;
+  color: rgb(49, 100, 133);
+  width: 0;
+  animation-name: line-3-striptease;
+  animation-delay: 2.4s;
+  animation-fill-mode: forwards;
+  animation-duration: 0.8s;
+  animation-timing-function: steps(14, start)
+}
+
+@keyframes line-3-striptease {
+  from {
+    width: 0;
+    border-right: 0.5rem solid rgb(238, 157, 0);
+  }
+  99% {
+    border-right: 0.5rem solid rgb(238, 157, 0);
+  }
+  to {
+    width: 11rem;
+    border-right: none;
+  }
+}
+
+.landing-input-container-4 {
+  display: flex;
+  margin-left: 18%;
+}
+
+@media only screen and (min-width: 600px) {
+  .landing-input-container-4 {
+    display: flex;
+    margin-left: 28%;
+  }
+}
+
+.landing-input-4:disabled {
+  margin-top: 3vh;
+  border: none;
+  outline: none;
+  font-family: "Roboto Mono";
+  background-color: rgba(0,0,0,0);
+  text-shadow: 0 2px 3px rgba(0,0,0,0.3);
+  font-size: 1.6rem;
+  color: rgb(23, 48, 65);
+  width: 0;
+  animation-name: line-4-striptease;
+  animation-delay: 3.2s;
+  animation-fill-mode: forwards;
+  animation-duration: 0.6s;
+  animation-timing-function: steps(8, start)
+}
+
+@keyframes line-4-striptease {
+  from {
+    width: 0;
+    border-right: 0.5rem solid rgb(238, 157, 0);
+  }
+  99% {
+    border-right: 0.5rem solid rgb(238, 157, 0);
+  }
+  to {
+    width: 9rem;
+    border-right: none;
+  }
+}
+
+.landing-input-container-5 {
+  display: flex;
+  margin-left: 18%;
+}
+
+@media only screen and (min-width: 600px) {
+  .landing-input-container-5 {
+    display: flex;
+    margin-left: 28%;
+  }
+}
+
+.landing-input-5:disabled {
+  margin-top: 1.5vh;
+  border: none;
+  outline: none;
+  font-family: "Roboto Mono";
+  background-color: rgba(0,0,0,0);
+  text-shadow: 0 2px 3px rgba(0,0,0,0.3);
+  font-size: 1.6rem;
+  color: rgb(23, 48, 65);
+  width: 0;
+  animation-name: line-5-striptease;
+  animation-delay: 3.2s;
+  animation-fill-mode: forwards;
+  animation-duration: 0.5s;
+  animation-timing-function: steps(7, start)
+}
+
+@keyframes line-5-striptease {
+  from {
+    width: 0;
+    border-right: 0.5rem solid rgb(238, 157, 0);
+  }
+  99% {
+    border-right: 0.5rem solid rgb(238, 157, 0);
+  }
+  to {
+    width: 8rem;
+    border-right: none;
+  }
+}
+
+.landing-input-container-6 {
+  display: flex;
+  margin-left: 18%;
+}
+
+@media only screen and (min-width: 600px) {
+  .landing-input-container-6 {
+    display: flex;
+    margin-left: 28%;
+  }
+}
+
+.landing-input-6:disabled {
+  margin-top: 1.5vh;
+  border: none;
+  outline: none;
+  font-family: "Roboto Mono";
+  background-color: rgba(0,0,0,0);
+  text-shadow: 0 2px 3px rgba(0,0,0,0.3);
+  font-size: 1.6rem;
+  color: rgb(23, 48, 65);
+  width: 0;
+  animation-name: line-6-striptease;
+  animation-delay: 3.2s;
+  animation-fill-mode: forwards;
+  animation-duration: 0.4s;
+  animation-timing-function: steps(6, start)
+}
+
+@keyframes line-6-striptease {
+  from {
+    width: 0;
+    border-right: 0.5rem solid rgb(238, 157, 0);
+  }
+  99% {
+    border-right: 0.5rem solid rgb(238, 157, 0);
+  }
+  to {
+    width: 6rem;
+    border-right: none;
+  }
+}
+
+.landing-input-container-7 {
+  display: flex;
+  margin-left: 18%;
+}
+
+@media only screen and (min-width: 600px) {
+  .landing-input-container-7 {
+    display: flex;
+    margin-left: 28%;
+  }
+}
+
+.landing-input-7:disabled {
+  margin-top: 1.5vh;
+  border: none;
+  outline: none;
+  font-family: "Roboto Mono";
+  background-color: rgba(0,0,0,0);
+  text-shadow: 0 2px 3px rgba(0,0,0,0.3);
+  font-size: 1.6rem;
+  color: rgb(23, 48, 65);
+  width: 0;
+  animation-name: line-7-striptease;
+  animation-delay: 3.2s;
+  animation-fill-mode: forwards;
+  animation-duration: 0.3s;
+  animation-timing-function: steps(5, start)
+}
+
+@keyframes line-7-striptease {
+  from {
+    width: 0;
+    border-right: 0.5rem solid rgb(238, 157, 0);
+  }
+  99% {
+    border-right: 0.5rem solid rgb(238, 157, 0);
+  }
+  to {
+    width: 5rem;
+    border-right: none;
+  }
+}
+
+
+.landing-input-container-8 {
+  display: flex;
+  margin-left: 16%;
+}
+
+@media only screen and (min-width: 600px) {
+  .landing-input-container-8 {
+    display: flex;
+    margin-left: 27%;
+  }
+}
+
+
+.landing-input-8:disabled {
+  margin-top: 1.5vh;
+  border: none;
+  outline: none;
+  font-family: "Roboto Mono";
+  background-color: rgba(0,0,0,0);
+  text-shadow: 0 2px 3px rgba(0,0,0,0.3);
+  font-size: 1.3rem;
+  color: rgb(49, 100, 133);
+  width: 0;
+  animation-name: line-8-striptease;
+  animation-delay: 3.8s;
+  animation-fill-mode: forwards;
+  animation-duration: 0.2s;
+  animation-timing-function: steps(2, start)
+}
+
+@keyframes line-8-striptease {
+  from {
+    width: 0;
+    border-right: 0.5rem solid rgb(238, 157, 0);
+  }
+  99% {
+    border-right: 0.5rem solid rgb(238, 157, 0);
+  }
+  to {
+    width: 2rem;
+    border-right: none;
+  }
+}
+
+.landing-input-container-9 {
+  display: flex;
+  margin-left: 10.5%;
+}
+
+@media only screen and (min-width: 600px) {
+  .landing-input-container-9 {
+    display: flex;
+    margin-left: 25%;
+  }
+}
+
+.landing-input-9:disabled {
+  margin-top: 1.5vh;
+  border: none;
+  outline: none;
+  font-family: "Roboto Mono";
+  background-color: rgba(0,0,0,0);
+  text-shadow: 0 2px 3px rgba(0,0,0,0.3);
+  font-size: 1.6rem;
+  color: rgb(49, 100, 133);
+  width: 0;
+  animation-name: line-9-striptease;
+  animation-delay: 4.0s;
+  animation-fill-mode: forwards;
+  animation-duration: 1.2s;
+  animation-timing-function: steps(28, start)
+}
+
+@keyframes line-9-striptease {
+  from {
+    width: 0;
+    border-right: 0.5rem solid rgb(238, 157, 0);
+  }
+  99% {
+    border-right: 0.5rem solid rgb(238, 157, 0);
+  }
+  to {
+    width: 27rem;
+    border-right: none;
+  }
+}
+
+.landing-input-container-10 {
+  display: flex;
+  margin-left: 17%;
+}
+
+@media only screen and (min-width: 600px) {
+  .landing-input-container-10 {
+    display: flex;
+    margin-left: 27%;
+  }
+}
+
+.landing-input-10:disabled {
+  margin-top: 1.5vh;
+  border: none;
+  outline: none;
+  font-family: "Roboto Mono";
+  background-color: rgba(0,0,0,0);
+  text-shadow: 0 2px 3px rgba(0,0,0,0.3);
+  font-size: 1.6rem;
+  color: rgb(49, 100, 133);
+  width: 0;
+  animation-name: line-10-striptease;
+  animation-delay: 5.8s;
+  animation-fill-mode: forwards;
+  animation-duration: 1.8s;
+  animation-timing-function: steps(3, start)
+}
+
+@keyframes line-10-striptease {
+  from {
+    width: 0;
+    border-right: 0.5rem solid rgb(238, 157, 0);
+  }
+  99% {
+    border-right: 0.5rem solid rgb(238, 157, 0);
+  }
+  to {
+    width: 3rem;
+    border-right: none;
+  }
+}

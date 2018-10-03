@@ -138,22 +138,6 @@ class AllProducts extends Component {
                         
                     </span>
                 ))}
-                {
-                    this.props.bowItems.popupState === true ?
-                    <span className="selected-popup-container">
-                            <input 
-                                className="selected-popup-item"
-                                disabled={true}
-                                type="text"
-                                value={
-                                    this.props.selectedProductName !== "" ?
-                                    "Selected Product: "+this.props.selectedProductName
-                                    : "Selected Product: (None)"
-                                }
-                                />
-                    </span>
-                    : null
-                }
             </div>
         );
         
