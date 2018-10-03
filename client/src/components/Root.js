@@ -42,7 +42,7 @@ class Root extends Component {
       }
     
       handleOrderSelect = (_id, pin, orderProductName, orderProductId) => {
-        const pinNumber = parseInt(pin);
+        const pinNumber = parseInt(pin, 10);
         if (this.state.orderId === "") {
           this.setState({
             orderPin: pinNumber,

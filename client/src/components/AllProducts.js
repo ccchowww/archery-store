@@ -68,19 +68,21 @@ class AllProducts extends Component {
         const calculatePriceByLocale = (locale, price) => {
             switch (locale.string) {
                 case "en-SG": 
-                    return parseInt(price * 10000 * 1.37 / 10000);
+                    return parseInt(price * 10000 * 1.37 / 10000, 10);
                 
                 case "en-MY": 
-                    return parseInt(price * 10000 * 4.14 / 10000);
+                    return parseInt(price * 10000 * 4.14 / 10000, 10);
                 
                 case "en-US": 
-                    return parseInt(price);
+                    return parseInt(price, 10);
 
                 case "en-EU":
-                    return parseInt(price * 10000 * 0.87 / 10000);
+                    return parseInt(price * 10000 * 0.87 / 10000, 10);
 
                 case "en-GB":
-                    return parseInt(price * 10000 * 0.77 / 10000);
+                    return parseInt(price * 10000 * 0.77 / 10000, 10);
+                default:
+                    return price;
             }
         }
 
@@ -117,6 +119,7 @@ class AllProducts extends Component {
                                 src={
                                         selectImage(bowType)
                                     }
+                                alt="Archery equipment"
                                 />
                         </span>
                         <span className="all-products-info-list-specs">

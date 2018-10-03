@@ -9,8 +9,8 @@ class Order extends Component {
 
     handleAddOrder = e => {
         e.preventDefault();
-        const pinNumber = parseInt(this.props.orderUserPin);
-        const quantityNumber = parseInt(this.props.orderQuantity);
+        const pinNumber = parseInt(this.props.orderUserPin, 10);
+        const quantityNumber = parseInt(this.props.orderQuantity, 10);
         const trimMessage = this.props.orderMessage.trim();
         const newOrder = {
             bowitem_id: this.props.selectedProductId,
@@ -23,8 +23,8 @@ class Order extends Component {
 
     handleUpdateOrder = e => {
         e.preventDefault();
-        const pinNumber = parseInt(this.props.orderPin);
-        const quantityNumber = parseInt(this.props.orderQuantity);
+        const pinNumber = parseInt(this.props.orderPin, 10);
+        const quantityNumber = parseInt(this.props.orderQuantity, 10);
         const trimMessage = this.props.orderMessage.trim();
         const updatedOrder = {
             _id: this.props.orderId,
@@ -48,7 +48,7 @@ class Order extends Component {
 
     retrieveOrders = e => {
         e.preventDefault();
-        const orderUserPin = parseInt(this.props.orderUserPin);
+        const orderUserPin = parseInt(this.props.orderUserPin, 10);
         if (this.props.orderUserPin === "") {
             this.props.getAllOrders();
         } else {
