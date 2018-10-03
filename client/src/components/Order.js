@@ -252,6 +252,7 @@ class Order extends Component {
                                                 : null
                                             }
                                             rows="6"
+                                            spellCheck={false}
                                             placeholder="140 Character Limit"
                                             className="order-view-left-form-item-textarea" 
                                             name="orderMessage" value={orderMessage} onChange={orderFormChangeHandler}/>
@@ -344,6 +345,7 @@ class Order extends Component {
                                                 : null
                                             }
                                             rows="6"
+                                            spellCheck={false}
                                             placeholder="140 Character Limit"
                                             className="order-view-left-form-item-textarea"
                                             name="orderMessage" value={orderMessage} onChange={orderFormChangeHandler}/>
