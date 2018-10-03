@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getBowItems } from '../actions/bowItemActions';
+import { getBowItems, openPopup } from '../actions/bowItemActions';
 import '../App.css';
+import Popup from './Popup';
 
 
 
@@ -10,11 +11,8 @@ class AllProducts extends Component {
     state = {
         filteredBowItems: [],
         manufacturer: '',
-        archeryStyle: '',
+        archeryStyle: ''
     }
-    
-
-
     
     componentDidMount() {
         this.props.bowItems.bowItems.length === 0 ?
@@ -22,17 +20,18 @@ class AllProducts extends Component {
             : null
     }
 
-    // componentDidUpdate(prevProps) {
-    //     if (prevProps.popupCounter !== this.props.popupCounter) {
-    //         if ( this.popupTimer ) {clearTimeout(this.popupTimer)}
-    //         this.popupTimer = setTimeout(() => {
-    //             this.props.incrementPopupCounter()
-    //             },
-    //         2000
-    //         );
-    //     }
-    // }
+    selectAndOpenPopup = (_id, name, manufacturer, price) => {
+        const popupState = this.props.bowItems.popupState;
 
+        this.props.openPopup(popupState.toString());
+        this.props.selectProductHandler(_id, name, manufacturer, price)
+    }
+
+    openPopup = () => {
+        const popupState = this.props.bowItems.popupState;
+
+        this.props.openPopup(popupState.toString());
+        }
 
     render() {
         const toolbarSearchValue = this.props.toolbarSearchValue;
@@ -91,13 +90,14 @@ class AllProducts extends Component {
                     return parseInt(price * 10000 * 0.77 / 10000);
             }
         }
+
         
         return (
             <div className="all-products-view-container">
             {loadingIcon()}
                 {filteredbowitems.map(({ _id, name, manufacturer, price, specs }) => (
                     <span
-                        onClick={selectProductHandler.bind(this, _id, name, manufacturer, price)}
+                        onClick={this.selectAndOpenPopup.bind(this, _id, name, manufacturer, price)}
                         style={
                                 _id === selectedProductId ?
                                 selectedStyle
@@ -143,6 +143,28 @@ class AllProducts extends Component {
                         
                     </span>
                 ))}
+                {
+                    this.props.bowItems.popupState === true ?
+                    // true ?
+                    <span className="selected-popup-container">
+                            <input 
+                                className="selected-popup-item"
+                                readOnly={true}
+                                autoFocus={true}
+                                type="text"
+                                value={
+                                    this.props.selectedProductName !== "" ?
+                                    "Selected Product: "+this.props.selectedProductName
+                                    : "Selected Product: (None)"
+                                }
+                                />
+                    </span>
+                    : null
+                }
+                {/* // (this.props.selectedProductName !== "") ?
+                                    // this.props.selectedProductName
+                                    // : "(None)"
+                                    // } */}
             </div>
         );
         
@@ -154,4 +176,4 @@ const mapStateToProps = (state) => ({
 })
 
 
-export default connect(mapStateToProps, { getBowItems })(AllProducts);
+export default connect(mapStateToProps, { getBowItems, openPopup })(AllProducts);

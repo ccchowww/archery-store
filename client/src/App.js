@@ -48,9 +48,7 @@ class App extends Component {
     orderProductId: "",
     orderProductName: "",
     orderQuantity: "",
-    orderMessage: "",
-    popupState: false,
-    popupCounter: 0
+    orderMessage: ""
   }
 
   localeChange = (e) => {
@@ -235,22 +233,8 @@ class App extends Component {
       })
   }
 
-  // showPopup = () => {
-  //   if (this.state.popupState === false) {
-  //     this.setState({
-  //       popupState: !this.state.popupState
-  //     });
-  //     setTimeout(() => (this.setState({popupState: !this.state.popupState}), 2000));
-  //   } else {
-  //     null
-  //   }
-  // }
+  
 
-  incrementPopupCounter = () => {
-    this.setState( prevState => {
-      popupCounter: prevState.popupCounter++
-    })
-  }
 
   render() {
     const localeList = {
@@ -282,7 +266,6 @@ class App extends Component {
 
     const { orderId, orderPin, orderUserPin, orderMessage, orderQuantity, orderProductId, orderProductName} = this.state;
 
-    let testes = {visibility: 'visible'}
 
 
     return (
@@ -309,6 +292,7 @@ class App extends Component {
             toolbarSearchHandler={this.toolbarSearchOnChange}
             selectProductHandler={this.onProductSelect}
             selectedProduct={this.state.selectedProductId}
+            selectedProductName={this.state.selectedProductName}
             popupState={this.state.popupState}
             popupCounter={this.state.popupCounter}
             incrementPopupCounter={this.incrementPopupCounter}
@@ -341,17 +325,6 @@ class App extends Component {
           : null
       }
       </div>
-      {
-          <span className="selected-popup-container">
-            <span style={
-              testes
-            }
-              className="selected-popup-item">
-            Selected product: BAD DRAGON
-            </span>
-          </span>
-      }
-        
       </div>
       </Provider>
     );

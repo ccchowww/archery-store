@@ -4,6 +4,19 @@ const router = express.Router();
 const BowItem = require('../../models/BowItem');
 const Order = require('../../models/Order');
 
+
+//TEST
+router.get('/popup/:state', (req, res, next) => {
+    if (req.params.state === "false") {
+        setTimeout(()=>{
+            res.send({popup: false})
+        }, 1800);
+    } else {
+        return;
+    }
+        
+})
+//TEST END
 //GET /api/bowitem
 //get all bowitems
 router.get('/all', (req, res, next) => {

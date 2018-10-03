@@ -3,17 +3,11 @@ import {
     UPDATE_ORDER,
     ADD_ORDER,
     DELETE_ORDER,
-    ORDERS_LOADING,
-    POPUP_ACTIVE
+    ORDERS_LOADING
 } from './types';
 
 import axios from 'axios';
 
-export const openPopup = () => dispatch => {
-    dispatch(setPopupActive());
-    setTimeout(setPopupActive() 
-        , 2000);
-}
 
 export const getOrders = pin => dispatch => {
     dispatch(setOrdersLoading());
@@ -61,11 +55,5 @@ export const deleteOrder = DeleteOrder => dispatch => {
 export const setOrdersLoading = () => {
     return {
         type: ORDERS_LOADING
-    }
-}
-
-export const setPopupActive = () => {
-    return {
-        type: POPUP_ACTIVE
     }
 }

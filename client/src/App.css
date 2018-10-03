@@ -21,16 +21,47 @@
 .selected-popup-container {
   position: fixed;
   width: 100vw;
-  top: 1rem;
+  bottom: 1rem;
   left: 0;
   display: flex;
   justify-content: center;
+  overflow: hidden
 }
 
 .selected-popup-item {
+  background-color: rgba(0, 183, 255, 0.85);
   color: white;
+  border-radius: 4px;
   font-size: 1.3rem;
-  font-weight: 800;
+  font-weight: 600;
+  height: 2rem;
+  width: 70%;
+  border: none;
+  outline: none;
+  text-align: center;
+  animation-duration: 1.8s;
+  animation-name: slidein;
+}
+
+@keyframes slidein {
+  from {
+    margin-right: 300%;
+    width: 70%;
+  }
+
+  17% {
+    margin-right: 0%;
+    width: 70%;
+  }
+
+  82% {
+    margin-right: 0%;
+    width: 70%;
+  }
+  to {
+    margin-right: 300%;
+    width: 70%;
+  }
 }
 
 ::placeholder {

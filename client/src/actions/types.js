@@ -12,4 +12,6 @@ export const BOWITEMS_LOADING = 'BOWITEMS_LOADING';
 
 export const ORDERS_LOADING = 'ORDERS_LOADING';
 
-export const POPUP_ACTIVE = 'POPUP_ACTIVE';
+export const POPUP_OPEN = 'POPUP_OPEN';
+
+export const POPUP_CLOSE = 'POPUP_CLOSE';
