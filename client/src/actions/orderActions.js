@@ -28,6 +28,7 @@ export const getAllOrders = () => dispatch => {
 }
 
 export const addOrder = newOrder => dispatch => {
+    dispatch(setOrdersLoading());
     axios.post('/api/order/post', newOrder)
          .then(res => dispatch({
              type: ADD_ORDER,
@@ -36,6 +37,7 @@ export const addOrder = newOrder => dispatch => {
 }
 
 export const updateOrder = updatedOrder => dispatch => {
+    dispatch(setOrdersLoading());
     axios.post('/api/order/update', updatedOrder)
          .then(res => dispatch({
              type: UPDATE_ORDER,
@@ -44,7 +46,7 @@ export const updateOrder = updatedOrder => dispatch => {
 }
 
 export const deleteOrder = DeleteOrder => dispatch => {
-    console.log(DeleteOrder);
+    dispatch(setOrdersLoading());
     axios.delete('/api/order/delete', { data: DeleteOrder })
          .then(res => dispatch({
             type: DELETE_ORDER,

@@ -169,7 +169,7 @@ class Order extends Component {
                                                     : null
                                                 }
                                                 className="order-view-left-form-input" 
-                                                type="number" placeholder="Pin between 1 - 9999"
+                                                type="number" placeholder="1 - 9999"
                                                 name="orderUserPin"
                                                 onChange={orderFormChangeHandler}
                                                 value={orderUserPin}
@@ -201,8 +201,10 @@ class Order extends Component {
                         {
                         this.props.activeTab === "add" ?
                             <span style={
-                                (orderUserPin && orderQuantity && orderMessage && selectedProductName !== "") ? orderValidStyle : null
-                            }
+                                (orderUserPin && orderQuantity && orderMessage && selectedProductName !== "") ?
+                                orderValidStyle
+                                : null
+                                }
                                 className="order-view-left-card">
                                 <form
                                     className="order-view-left-form"
@@ -213,7 +215,7 @@ class Order extends Component {
                                         Pin:
                                     </span>
                                     <span className="order-view-left-form-item">
-                                        <input placeholder="Pin between 1 - 9999"
+                                        <input placeholder="1 - 9999"
                                             style={
                                                 (orderUserPin && orderQuantity && orderMessage && selectedProductName !== "") ?
                                                 orderValidTextStyle
@@ -274,10 +276,15 @@ class Order extends Component {
                                             }
                                         style={
                                             (orderUserPin && orderQuantity && orderMessage && selectedProductName !== "") ?
-                                            {width: '110%'}
+                                            {width: '102%'}
                                             : null
                                             }
-                                        className="order-view-submit-button" type="submit" value="Add Order"
+                                        className="order-view-submit-button" type="submit"
+                                        value={
+                                            (loading === true) ?
+                                            "Adding..."
+                                            : "Add Order"
+                                        }
                                         />
                                 </form>
                             </span>
@@ -285,7 +292,13 @@ class Order extends Component {
                         }
                         {
                         this.props.activeTab === "edit" ?
-                            <span className="order-view-left-card">
+                            <span style={
+                                (orderPin && orderQuantity && orderMessage && selectedProductName !== "") ?
+                                orderValidStyle
+                                : null
+                                }
+                                className="order-view-left-card"
+                                >
                                 <form className="order-view-left-form"
                                     onSubmit={this.handleUpdateOrder}
                                     >
@@ -311,7 +324,7 @@ class Order extends Component {
                                     <span className="order-view-left-form-item">
                                         <input
                                             style={
-                                                (orderUserPin && orderQuantity && orderMessage && selectedProductName !== "") ?
+                                                (orderPin && orderQuantity && orderMessage && selectedProductName !== "") ?
                                                 orderValidTextStyle
                                                 : null
                                             }
@@ -326,7 +339,7 @@ class Order extends Component {
                                     <span className="order-view-left-form-item">
                                         <textarea
                                             style={
-                                                (orderUserPin && orderQuantity && orderMessage && selectedProductName !== "") ?
+                                                (orderPin && orderQuantity && orderMessage && selectedProductName !== "") ?
                                                 orderValidTextStyle
                                                 : null
                                             }
@@ -351,14 +364,23 @@ class Order extends Component {
                                         }
                                     </span>
                                     <input disabled={
-                                            (orderPin && orderQuantity && orderMessage && selectedProductName !== "") ? null : true
-                                        }
-                                        style={
                                             (orderPin && orderQuantity && orderMessage && selectedProductName !== "") ?
-                                            {width: '110%'}
-                                            : null
-                                        }
-                                        className="order-view-submit-button" type="submit" value="Update Order"/>
+                                            null
+                                            : true
+                                            }
+                                            style={
+                                                (orderPin && orderQuantity && orderMessage && selectedProductName !== "") ?
+                                                {width: '110%'}
+                                                : null
+                                            }
+                                            className="order-view-submit-button"
+                                            type="submit"
+                                            value={
+                                                (loading === true) ?
+                                                "Updating"
+                                                : "Update Order"
+                                            }
+                                        />
                                 </form>
                             </span>
                             : null
@@ -392,7 +414,14 @@ class Order extends Component {
                                                 {width: '110%'}
                                                 : null
                                             }
-                                            className="order-view-submit-button" type="submit" value="Delete Order"/>
+                                            className="order-view-submit-button"
+                                            type="submit"
+                                            value={
+                                                (loading === true) ?
+                                                "Deleting..."
+                                                : "Delete Order"
+                                            }
+                                            />
                                     </span>
                                 </form>
                             </span>

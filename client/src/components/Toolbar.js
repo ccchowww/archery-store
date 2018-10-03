@@ -13,12 +13,12 @@ class Toolbar extends Component {
   
         if (this.props.viewProductsToggleState === true) {
           productsStyle = {
-            color: 'rgb(252, 252, 252)',
+            color: 'rgb(49, 100, 133)',
             textShadow: '0px 1px 2px rgba(0,0,0,0.3)'
           }
           productsCrossStyle = {
               visibility: 'visible',
-              color: 'rgb(252, 252, 252)',
+              color: 'rgb(49, 100, 133)',
               textShadow: '0px 1px 2px rgba(0,0,0,0.3)'
           }
 
@@ -31,12 +31,12 @@ class Toolbar extends Component {
         
         if (this.props.viewOrdersToggleState === true) {
           ordersStyle = {
-            color: 'rgb(252, 252, 252)',
+            color: 'rgb(49, 100, 133)',
             textShadow: '0px 1px 2px rgba(0,0,0,0.3)'
           }
           ordersCrossStyle = {
               visibility: 'visible',
-              color: 'rgb(252, 252, 252)',
+              color: 'rgb(49, 100, 133)',
               textShadow: '0px 1px 2px rgba(0,0,0,0.3)'
           }
         } else {

@@ -68,7 +68,7 @@ class Landing extends Component {
                 <input
                     className="landing-input-9"
                     disabled={true}
-                    value="- and over 900 lines of CSS."
+                    value="- and over 900 lines of CSS"
                     />
             </div>
             <div className="landing-input-container-10">

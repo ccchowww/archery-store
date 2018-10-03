@@ -19,11 +19,12 @@
 .selected-popup-container {
   position: fixed;
   width: 100vw;
-  bottom: 1rem;
+  bottom: 0.5rem;
   left: 0;
   display: flex;
   justify-content: center;
-  overflow: hidden
+  overflow: hidden;
+  z-index: 999;
 }
 
 .selected-popup-item:disabled {
@@ -33,6 +34,7 @@
   text-shadow: 0 1px 2px rgba(0,0,0,0.2);
   font-size: 1.3rem;
   padding-bottom: 0.3rem;
+  padding-top: 0.3rem;
   font-weight: 500;
   width: 70%;
   border: none;

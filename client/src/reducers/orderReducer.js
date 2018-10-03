@@ -16,7 +16,8 @@ export default function(state = initialState, action) {
         case ADD_ORDER:
             return {
                 ...state,
-                orders: [action.payload, ...state.orders]
+                orders: [action.payload, ...state.orders],
+                loading: false
             }
         case UPDATE_ORDER:
             return {
@@ -24,18 +25,20 @@ export default function(state = initialState, action) {
                 orders: state.orders.map(obj => obj._id === action.payload._id ?
                     { ...obj, ...action.payload} :
                     obj
-                )
+                ),
+                loading: false
             }
-        case ORDERS_LOADING:
+            case DELETE_ORDER:
+            return {
+                ...state,
+                orders: state.orders.filter(order => order._id !== action.payload._id),
+                loading: false
+            }
+            case ORDERS_LOADING:
             return {
                 ...state,
                 loading: true
             }
-        case DELETE_ORDER:
-        return {
-            ...state,
-            orders: state.orders.filter(order => order._id !== action.payload._id)
-        }
         default:
             return state;
     }
