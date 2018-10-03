@@ -1,9 +1,10 @@
-# archery-store
-Archery store - Get, Add, Update or Delete your orders
+# More Information
+Redux used to manage backend. (Mongoose)
 
-Built using {
-  Mongoose
-  Express
-  React
-  Nodejs
-}
+a CSS preprocessor should have been used.
+  App.css - 999 lines;
+
+Region currency selection.
+
+Essentially an overstyled comment section used to
+learn more Javascript.  
