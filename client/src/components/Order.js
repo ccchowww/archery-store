@@ -84,7 +84,7 @@ class Order extends Component {
         }
 
         const selectedStylePin = {
-            webkitTransition: 'color 0.4s ease-in-out',
+            WebkitTransition: 'color 0.4s ease-in-out',
             transition: 'color 0.4s ease-in-out',
             borderBottom: '1px solid rgba(68, 0, 255, 0.9)'
         }
@@ -436,8 +436,6 @@ class Order extends Component {
                         }
                     </div>
                     <div className="order-right-container">
-                    {/* <span className="order-view-right-card-indicator"> */}
-                    {/* </span> */}
                             {
                                 orders.map(({ pin, bowItem, quantity, message, _id }) => (
                                     <div style={
