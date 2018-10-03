@@ -5,76 +5,8 @@ import store from './store';
 import AllProducts from './components/AllProducts';
 import Order from './components/Order';
 import Landing from './components/Landing';
-
-
-class Topbar extends Component {
-
-  render() {
-    return (
-      <div>
-          <span className="topbar">
-            <a className="topbar-item-left-link" href="https://github.com/ccchowww/archery-store">
-              <span className="topbar-item-left">
-                  <span>Github</span>
-              </span>
-              </a>
-          </span>
-      </div>
-    );
-  }
-}
-
-class Toolbar extends Component {
-  
-
-
-  render() {
-      let productsStyle = null
-      let ordersStyle = {
-        borderBottom: '2px solid rgb(0, 255, 255)'
-      }
-
-      if (this.props.viewProductsToggleState === true) {
-        productsStyle = {
-          borderBottom: '2px solid rgb(0, 255, 255)'
-        }
-      } else {
-        productsStyle = null
-      }
-      
-      if (this.props.viewOrdersToggleState === true) {
-        ordersStyle = {
-          borderBottom: '2px solid rgb(0, 255, 255)'
-        }
-      } else {
-        ordersStyle = null
-      }
-
-      
-      
-      return (
-          <div className="toolbar">
-              <span className="toolbar-items-left">
-                <span className="toolbar-item-left" style={productsStyle} onClick={this.props.viewProducts}>View Products</span>
-                <span className="toolbar-item-left" style={ordersStyle} onClick={this.props.viewOrder}>Leave an Order</span>
-              </span>
-              <span className="toolbar-items-right">
-              {
-                this.props.viewProductsToggleState === true ?
-                  <input type="text" className="toolbar-item-right searchbar"
-                  name="toolbarSearchInput"
-                  onChange={this.props.allProductsSearchHandler}
-                  value={this.props.allProductsSearchValue}
-                  placeholder="Search..."
-                  />
-                  : <span className="toolbar-item-right"></span>
-              }
-
-              </span>
-          </div>
-      );
-  }
-}
+import Topbar from './components/Topbar';
+import Toolbar from './components/Toolbar';
 
 class LandingCards extends Component {
 
@@ -100,6 +32,7 @@ class LandingCards extends Component {
 
 class App extends Component {
   state = {
+    locale: "SG",
     activeContent: "",
     activeTab: "get",
     viewProductsToggle: false,
@@ -115,17 +48,41 @@ class App extends Component {
     orderProductId: "",
     orderProductName: "",
     orderQuantity: "",
-    orderMessage: ""
+    orderMessage: "",
+    popupState: false,
+    popupCounter: 0
+  }
+
+  localeChange = (e) => {
+    this.setState({
+      locale: e.target.value
+    })
   }
 
   handleOrderSelect = (_id, pin, orderProductName, orderProductId) => {
     const pinNumber = parseInt(pin);
-    this.setState({
+    if (this.state.orderId === "") {
+      this.setState({
         orderPin: pinNumber,
         orderId: _id,
         orderProductName: orderProductName,
         orderProductId: orderProductId
-    });
+      });
+    } else if (this.state.orderId === _id) {
+      this.setState({
+        orderPin: "",
+        orderId: "",
+        orderProductName: "",
+        orderProductId: ""
+      })
+    } else {
+      this.setState({
+        orderPin: pinNumber,
+        orderId: _id,
+        orderProductName: orderProductName,
+        orderProductId: orderProductId
+      })
+    }
   }
 
   handleOrderFormChange = (e) => {
@@ -233,12 +190,15 @@ class App extends Component {
         selectedProductId: _id,
         selectedProductName: name,
         selectedProductManufacturer: manufacturer,
-        selectedProductPrice: price
-      })
+        selectedProductPrice: price,
+        popupCounter: this.state.popupCounter + 1
+      });
     } else if (this.state.selectedProductId === _id) {
       this.setState({
         selectedProductId: "",
-        selectedProductName: ""
+        selectedProductName: "",
+        selectedProductManufacturer: "",
+        selectedProductPrice: ""
       })
     } else {
       this.setState({
@@ -248,6 +208,7 @@ class App extends Component {
         selectedProductPrice: price
       })
     }
+    
   }
 
   getOrderView = () => {
@@ -274,14 +235,60 @@ class App extends Component {
       })
   }
 
+  // showPopup = () => {
+  //   if (this.state.popupState === false) {
+  //     this.setState({
+  //       popupState: !this.state.popupState
+  //     });
+  //     setTimeout(() => (this.setState({popupState: !this.state.popupState}), 2000));
+  //   } else {
+  //     null
+  //   }
+  // }
+
+  incrementPopupCounter = () => {
+    this.setState( prevState => {
+      popupCounter: prevState.popupCounter++
+    })
+  }
+
   render() {
+    const localeList = {
+      MY: {
+          string: 'en-MY',
+          object: {style:'currency', currency:'MYR'}
+      },
+      SG: {
+        string: 'en-SG',
+        object: {style:'currency', currency:'SGD'}
+      },
+      US: {
+        string: 'en-US',
+        object: {style:'currency', currency:'USD'}
+      },
+      EU: {
+        string: 'en-EU',
+        object: {style:'currency', currency:'EUR'}
+      },
+      UK: {
+        string: 'en-GB',
+        object: {style:'currency', currency:'GBP'}
+      }
+    }
+
+    const selectedLocale = this.state.locale;
+
+    const currentLocale = localeList[selectedLocale];
 
     const { orderId, orderPin, orderUserPin, orderMessage, orderQuantity, orderProductId, orderProductName} = this.state;
+
+    let testes = {visibility: 'visible'}
+
 
     return (
       <Provider store={store}>
       <div>
-      <Topbar />
+      <Topbar locale={this.state.locale} handleLocaleChange={this.localeChange}/>
       <Toolbar
         viewProducts={this.viewProducts}
         viewOrder={this.viewOrder}
@@ -297,16 +304,21 @@ class App extends Component {
       {
         this.state.activeContent === "viewProducts" ?
           <AllProducts
+            currentLocale={currentLocale}
             toolbarSearchValue={this.state.toolbarSearchInput}
             toolbarSearchHandler={this.toolbarSearchOnChange}
             selectProductHandler={this.onProductSelect}
             selectedProduct={this.state.selectedProductId}
+            popupState={this.state.popupState}
+            popupCounter={this.state.popupCounter}
+            incrementPopupCounter={this.incrementPopupCounter}
             />
           : null
       }
       {
         this.state.activeContent === "viewOrder" ?
-          <Order 
+          <Order
+            currentLocale={currentLocale}
             orderFormChangeHandler={this.handleOrderFormChange}
             orderSelectHandler={this.handleOrderSelect}
             orderId={orderId}
@@ -329,9 +341,17 @@ class App extends Component {
           : null
       }
       </div>
+      {
+          <span className="selected-popup-container">
+            <span style={
+              testes
+            }
+              className="selected-popup-item">
+            Selected product: BAD DRAGON
+            </span>
+          </span>
+      }
         
-        
-        {/* <Landing /> */}
       </div>
       </Provider>
     );

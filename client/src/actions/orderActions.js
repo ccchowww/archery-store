@@ -1,5 +1,19 @@
-import { GET_ORDERS, UPDATE_ORDER, ADD_ORDER, DELETE_ORDER, ORDERS_LOADING } from './types';
+import {
+    GET_ORDERS,
+    UPDATE_ORDER,
+    ADD_ORDER,
+    DELETE_ORDER,
+    ORDERS_LOADING,
+    POPUP_ACTIVE
+} from './types';
+
 import axios from 'axios';
+
+export const openPopup = () => dispatch => {
+    dispatch(setPopupActive());
+    setTimeout(setPopupActive() 
+        , 2000);
+}
 
 export const getOrders = pin => dispatch => {
     dispatch(setOrdersLoading());
@@ -8,6 +22,15 @@ export const getOrders = pin => dispatch => {
              type: GET_ORDERS,
              payload: res.data
          }))
+}
+
+export const getAllOrders = () => dispatch => {
+    dispatch(setOrdersLoading());
+    axios.get('/api/order/orders')
+        .then(res => dispatch ({
+            type: GET_ORDERS,
+            payload: res.data
+        }))
 }
 
 export const addOrder = newOrder => dispatch => {
@@ -38,5 +61,11 @@ export const deleteOrder = DeleteOrder => dispatch => {
 export const setOrdersLoading = () => {
     return {
         type: ORDERS_LOADING
+    }
+}
+
+export const setPopupActive = () => {
+    return {
+        type: POPUP_ACTIVE
     }
 }

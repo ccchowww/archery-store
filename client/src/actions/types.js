@@ -11,3 +11,5 @@ export const UPDATE_ORDER = 'UPDATE_ORDER';
 export const BOWITEMS_LOADING = 'BOWITEMS_LOADING';
 
 export const ORDERS_LOADING = 'ORDERS_LOADING';
+
+export const POPUP_ACTIVE = 'POPUP_ACTIVE';

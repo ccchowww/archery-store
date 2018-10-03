@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getOrders, addOrder, updateOrder, deleteOrder } from '../actions/orderActions';
+import { getOrders, getAllOrders, addOrder, updateOrder, deleteOrder } from '../actions/orderActions';
 import "../App.css";
 
 
@@ -11,10 +11,11 @@ class Order extends Component {
         e.preventDefault();
         const pinNumber = parseInt(this.props.orderUserPin);
         const quantityNumber = parseInt(this.props.orderQuantity);
+        const trimMessage = this.props.orderMessage.trim();
         const newOrder = {
             bowitem_id: this.props.selectedProductId,
             quantity: quantityNumber,
-            message: this.props.orderMessage,
+            message: trimMessage,
             pin: pinNumber
         }
         this.props.addOrder(newOrder);
@@ -24,11 +25,12 @@ class Order extends Component {
         e.preventDefault();
         const pinNumber = parseInt(this.props.orderPin);
         const quantityNumber = parseInt(this.props.orderQuantity);
+        const trimMessage = this.props.orderMessage.trim();
         const updatedOrder = {
             _id: this.props.orderId,
             bowitem_id: this.props.selectedProductId,
             quantity: quantityNumber,
-            message: this.props.orderMessage,
+            message: trimMessage,
             pin: pinNumber
         }
         this.props.updateOrder(updatedOrder);
@@ -53,7 +55,7 @@ class Order extends Component {
         e.preventDefault();
         const orderUserPin = parseInt(this.props.orderUserPin);
         if (this.props.orderUserPin === "") {
-            return null
+            this.props.getAllOrders();
         } else {
             this.props.getOrders(orderUserPin);
         }
@@ -82,14 +84,24 @@ class Order extends Component {
             selectedProductPrice
         } = this.props;
 
+        const selectedStyle = {
+            backgroundColor: 'rgb(252, 252, 252)',
+            boxShadow: '0 4px 12px 0 rgba(0,0,0,0.3)'
+        }
+
+        const orderValidStyle = {
+            backgroundColor: 'rgb(252, 252, 252)',
+            boxShadow: '0 4px 12px 0 rgba(0,0,0,0.3)'
+        }
+
         return (
             <div>
-                <div className="order-view-selector">
+                <span className="order-view-selector-items">
                     <span className="order-view-selector-item" onClick={this.props.getOrderView}>Get</span>
                     <span className="order-view-selector-item" onClick={this.props.addOrderView}>Add</span>
                     <span className="order-view-selector-item" onClick={this.props.editOrderView}>Edit</span>
                     <span className="order-view-selector-item" onClick={this.props.deleteOrderView}>Delete</span>
-                </div>
+                </span>
                 <div className="order-view-main-container">
                     <div className="order-view-left-container">
                         {
@@ -98,8 +110,9 @@ class Order extends Component {
                                     <form className="order-view-left-form" 
                                         onSubmit={this.retrieveOrders}
                                         >
-                                        <span className="order-view-left-form-item">
-                                            Enter Order Pin:
+                                        <span
+                                            className="order-view-left-form-item">
+                                            Enter your Order Pin:
                                         </span>
                                         <span className="order-view-left-form-item">
                                             <input
@@ -110,8 +123,12 @@ class Order extends Component {
                                                 value={orderUserPin}
                                                 />
                                         </span>
-                                        <span className="order-view-left-form-item order-view-submit">
-                                            <input className="order-view-submit-button" type="submit" value="Retrieve" />
+                                        <span className="order-view-left-form-input-note">
+                                            *Leave empty to get ALL orders.
+                                        </span>
+                                        <span className="order-view-left-form-last">
+                                            <input
+                                                className="order-view-submit-button" type="submit" value="Retrieve Order(s)" />
                                         </span>
                                     </form>
                                     {loading === true ? <h1>LOADING ORDERS AHH HH</h1> : null}
@@ -120,34 +137,58 @@ class Order extends Component {
                         }
                         {
                         this.props.activeTab === "add" ?
-                            <span className="order-view-left-card">
+                            <span style={
+                                (orderUserPin && orderQuantity && orderMessage && selectedProductName !== "") ? orderValidStyle : null
+                            }
+                                className="order-view-left-card">
                                 <form
                                     className="order-view-left-form"
                                     onSubmit={this.handleAddOrder}
                                     >
-                                    <span className="order-view-left-form-item">
+                                    <span style={orderUserPin === "" ? {color: 'red'} : null}
+                                        className="order-view-left-form-item">
                                         Pin:
                                     </span>
                                     <span className="order-view-left-form-item">
-                                        <input className="order-view-left-form-input" 
-                                            name="orderUserPin" type="number" value={orderUserPin} onChange={orderFormChangeHandler}/>
+                                        <input placeholder="Pin between 1 - 9999"
+                                            className="order-view-left-form-input" 
+                                            name="orderUserPin" type="number"
+                                            value={orderUserPin} onChange={orderFormChangeHandler}/>
                                     </span>
-                                    <span className="order-view-left-form-item">
+                                    <span style={orderQuantity === "" ? {color: 'red'} : null}
+                                        className="order-view-left-form-item">
                                         Quantity:
                                     </span>
                                     <span className="order-view-left-form-item">
-                                        <input className="order-view-left-form-input" 
-                                            name="orderQuantity" type="number" value={orderQuantity} onChange={orderFormChangeHandler}/>
+                                        <input placeholder="1 - 100"
+                                            className="order-view-left-form-input" 
+                                            name="orderQuantity" type="number"
+                                            value={orderQuantity} onChange={orderFormChangeHandler}/>
                                     </span>
-                                    <span className="order-view-left-form-item">
+                                    <span style={orderMessage === "" ? {color: 'red'} : null}
+                                        className="order-view-left-form-item">
                                         Message:
                                     </span>
                                     <span className="order-view-left-form-item">
-                                        <textarea className="order-view-left-form-input" 
+                                        <textarea 
+                                            rows="6"
+                                            placeholder="140 Character Limit"
+                                            className="order-view-left-form-item-textarea" 
                                             name="orderMessage" value={orderMessage} onChange={orderFormChangeHandler}/>
                                     </span>
-                                    <span className="order-view-left-form-item order-view-submit">
-                                        <input className="order-view-submit-button" type="submit" value="Add Order"/>
+                                    <span className="order-view-left-form-last">
+                                        <span style={selectedProductName === "" ? {color: 'red'} : null}
+                                            className="order-view-left-form-last-item"
+                                            >
+                                                Selected Product:
+                                        </span>
+                                        <span className="order-view-left-form-last-item order-view-left-form-last-item-value">
+                                            {selectedProductName === "" ? <span style={{marginLeft: 0}} className="order-view-left-form-input-note">*Select a product from View Products</span> : selectedProductName}
+                                        </span>
+                                        <input disabled={
+                                            (orderUserPin && orderQuantity && orderMessage && selectedProductName !== "") ? null : true
+                                            }
+                                            className="order-view-submit-button" type="submit" value="Add Order"/>
                                     </span>
                                 </form>
                             </span>
@@ -159,29 +200,47 @@ class Order extends Component {
                                 <form className="order-view-left-form"
                                     onSubmit={this.handleUpdateOrder}
                                     >
-                                    <span className="order-view-left-form-item">
-                                        Pin:
+                                    <span style={(orderPin === "" || isNaN(orderPin)) ? {color: 'red'} : null }
+                                        className="order-view-left-form-item">
+                                        Selected Order Pin:
                                     </span>
                                     <span className="order-view-left-form-item">
                                         <input className="order-view-left-form-input"
-                                            name="orderPin" type="number" value={orderPin} onChange={orderFormChangeHandler}/>
+                                            placeholder="Pin from Selected Order (if present)"
+                                            name="orderPin" type="number" value={orderPin} readOnly/>
                                     </span>
-                                    <span className="order-view-left-form-item">
+                                    <span style={orderQuantity === "" ? {color: 'red'} : null}
+                                        className="order-view-left-form-item">
                                         Quantity:
                                     </span>
                                     <span className="order-view-left-form-item">
-                                        <input className="order-view-left-form-input"
+                                        <input 
+                                            className="order-view-left-form-input"
+                                            placeholder="1 - 100"
                                             name="orderQuantity" type="number" value={orderQuantity} onChange={orderFormChangeHandler}/>
                                     </span>
-                                    <span className="order-view-left-form-item">
+                                    <span style={orderMessage === "" ? {color: 'red'} : null}
+                                        className="order-view-left-form-item">
                                         Message:
                                     </span>
                                     <span className="order-view-left-form-item">
-                                        <textarea className="order-view-left-form-input"
+                                        <textarea 
+                                            rows="6"
+                                            placeholder="140 Character Limit"
+                                            className="order-view-left-form-item-textarea"
                                             name="orderMessage" value={orderMessage} onChange={orderFormChangeHandler}/>
                                     </span>
-                                    <span className="order-view-left-form-item order-view-submit">
-                                        <input className="order-view-submit-button" type="submit" value="Update Order"/>
+                                    <span className="order-view-left-form-last">
+                                        <span style={selectedProductName === "" ? {color: 'red'} : null} className="order-view-left-form-last-item">
+                                            Selected Product:
+                                        </span>
+                                        <span className="order-view-left-form-last-item order-view-left-form-last-item-value">
+                                            {selectedProductName === "" ? <span style={{marginLeft: 0}} className="order-view-left-form-input-note">*Select a product from View Products</span> : selectedProductName}
+                                        </span>
+                                        <input disabled={
+                                            (orderPin && orderQuantity && orderMessage && selectedProductName !== "") ? null : true
+                                        }
+                                            className="order-view-submit-button" type="submit" value="Update Order"/>
                                     </span>
                                 </form>
                             </span>
@@ -193,69 +252,78 @@ class Order extends Component {
                                 <form className="order-view-left-form"
                                     onSubmit={this.handleDeleteOrder}
                                     >
-                                    <span className="order-view-left-form-item">
-                                        Pin:
+                                    <span style={(orderPin === "" || isNaN(orderPin)) ? {color: 'red'} : null }
+                                        className="order-view-left-form-item">
+                                        Selected Order Pin:
                                     </span>
                                     <span className="order-view-left-form-item">
-                                        <input className="order-view-left-form-input"
-                                            name="orderUserPin" type="number" value={orderUserPin} onChange={orderFormChangeHandler}/>
+                                        <input
+                                            placeholder="Pin from Selected Order (if present)"
+                                            className="order-view-left-form-input"
+                                            name="orderUserPin" type="number" value={orderPin} readOnly/>
                                     </span>
-                                    <span className="order-view-left-form-item order-view-submit">
-                                        <input className="order-view-submit-button" type="submit" value="Delete Order"/>
+                                    <span className="order-view-left-form-input-note">
+                                        *Delete selected order. Requires Pin.
+                                    </span>
+                                    <span className="order-view-left-form-last">
+                                        <input
+                                            disabled={
+                                                (orderPin === "" || isNaN(orderPin)) ? null : true
+                                            }
+                                            className="order-view-submit-button" type="submit" value="Delete Order"/>
                                     </span>
                                 </form>
                             </span>
                             : null
                         }
-                        {/* {
-                            selectedProductName === "" ? null :
-                            <div className="order-view-left-selected-card">
-                                <span className="order-view-left-selected-item">Selected Product:</span>
-                                <span className="order-view-left-selected-item">{selectedProductName}</span>
-                                <span className="order-view-left-selected-item">{selectedProductManufacturer}</span>
-                                <span className="order-view-left-selected-item">{selectedProductPrice}</span>
-                            </div>
-                            
-                        }
-                        {
-                            orderId === "" ? null :
-                            <div className="order-view-left-selected-card">
-                                <span className="order-view-left-selected-item">Selected Order:</span>
-                                <span className="order-view-left-selected-item">Order Pin: {orderPin}</span>
-                            </div>
-                        } */}
                     </div>
                     <div className="order-right-container">
-                        <div className="order-list-container">
                             {
                                 orders.map(({ pin, bowItem, quantity, message, _id }) => (
-                                    <div className="order-list-card" key={_id}>
-                                        <span className="order-list-item">
-                                            Order Pin:
-                                        </span>
-                                        <span className="order-list-item">
-                                            {pin}
-                                        </span>
+                                    <div style={
+                                        _id === orderId ?
+                                            selectedStyle
+                                            : null
+                                        }
+                                    
+                                        className="order-list-card" key={_id}>
+                                    {
+                                        pin !== undefined ?
+                                            <span className="order-list-item">
+                                                Order Pin:
+                                            </span>
+                                            : null
+                                    }
+                                    {
+                                        pin !== undefined ?
+                                            <span className="order-list-item order-list-item-text">
+                                                {pin}
+                                            </span>
+                                            : null
+                                    }
                                         <span className="order-list-item">
                                             Product:
                                         </span>
-                                        <span className="order-list-item">
+                                        <span className="order-list-item order-list-item-text">
                                             {bowItem.name}
                                         </span>
                                         <span className="order-list-item">
                                             Quantity:
                                         </span>
-                                        <span className="order-list-item">
+                                        <span className="order-list-item order-list-item-text">
                                             {quantity}
                                         </span>
                                         <span className="order-list-item">
                                             Message:
                                         </span>
-                                        <span className="order-list-item">
+                                        <span className="order-list-item order-list-item-text">
                                             {message}
                                         </span>
-                                        <span className="order-list-item">
-                                            <input className="order-list-item-button"
+                                        <span className="order-list-item-last">
+                                            <input disabled={
+                                                (pin === "" || isNaN(pin)) ? true : null
+                                            }
+                                                className="order-list-item-button"
                                                 type="button" value="Select"
                                                 onClick={orderSelectHandler.bind(this, _id, pin, bowItem.name, bowItem._id)}
                                                 />
@@ -264,9 +332,6 @@ class Order extends Component {
                                     )
                                 )
                             }
-                        </div>
-                    
-                    
                     </div>
                 </div>
             </div>
@@ -279,4 +344,4 @@ const mapStateToProps = (state) => ({
 })
 
 
-export default connect(mapStateToProps, { getOrders, addOrder, updateOrder, deleteOrder })(Order);
+export default connect(mapStateToProps, { getOrders, getAllOrders, addOrder, updateOrder, deleteOrder })(Order);

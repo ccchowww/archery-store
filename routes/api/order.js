@@ -3,9 +3,25 @@ const router = express.Router();
 
 const Order = require('../../models/Order');
 
+//CAUTION TESTINGGGG
+router.get('/test', (req, res, next) => {
+    setTimeout(()=>{
+        res.send({popup: true})
+    }, 2000);
+})
+//CAUTION TESTINGGG END
+
+
 router.get('/', (req, res, next) => {
     Order
         .find()
+        .populate('bowItem')
+        .then(order => res.json(order));
+})
+
+router.get('/orders', (req, res, next) => {
+    Order
+        .find({}, '_id bowItem quantity message')
         .populate('bowItem')
         .then(order => res.json(order));
 })

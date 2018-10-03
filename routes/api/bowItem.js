@@ -9,6 +9,7 @@ const Order = require('../../models/Order');
 router.get('/all', (req, res, next) => {
     BowItem
         .find()
+        .sort({name: 1})
         .then(bowItem => res.json(bowItem));
 });
 
