@@ -79,7 +79,11 @@ class Toolbar extends Component {
                     name="toolbarSearchInput"
                     onChange={this.props.allProductsSearchHandler}
                     value={this.props.allProductsSearchValue}
-                    placeholder="Search..."
+                    placeholder={
+                        (this.props.productsLoadingState === true) ?
+                        "Loading..."
+                        : "Search..."
+                    }
                     />
                     : <span className="toolbar-item-right"></span>
                 }

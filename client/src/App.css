@@ -268,19 +268,27 @@ input, select, textarea, button{font-family:inherit;}
 .all-products-item-img {
   margin-top: 1vw;
   margin-bottom: 1vw;
+  flex-grow: 1;
 }
 
-.all-products-item-img-tag {
+@media only screen and (max-width: 600px) {
+  .all-products-item-img-tag {
+    width: 8rem;
+  }
 }
 
+@media only screen and (min-width: 600px) {
+  .all-products-item-img-tag {
+    width: 8rem;
+    height: 18rem;
+  }
+}
 .all-products-info-list-specs {
   display: flex;
-  /* width: 14vh; */
   flex-direction: column;
   margin-left: 1vw;
   margin-top: 1vw;
   margin-bottom: 1vw;
-  /* padding-left: 1rem; */
 }
 
 .all-products-info-list-specs-item {
@@ -469,7 +477,7 @@ input:disabled {
 } 
 
 .order-view-submit-button:hover {
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.4);
+  box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2);
 
 }
 

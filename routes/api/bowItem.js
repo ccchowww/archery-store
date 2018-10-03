@@ -5,7 +5,6 @@ const BowItem = require('../../models/BowItem');
 const Order = require('../../models/Order');
 
 
-//TEST
 router.get('/popup/:state', (req, res, next) => {
     if (req.params.state === "false") {
         setTimeout(()=>{
@@ -16,7 +15,6 @@ router.get('/popup/:state', (req, res, next) => {
     }
         
 })
-//TEST END
 //GET /api/bowitem
 //get all bowitems
 router.get('/all', (req, res, next) => {

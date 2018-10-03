@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getBowItems, openPopup } from '../actions/bowItemActions';
 import '../App.css';
-
+import compoundBow from '../images/compoundBow.png';
+import recurveRiser from '../images/recurveRiser.png';
+import recurveLimbs from '../images/recurveLimbs.png';
 
 
 class AllProducts extends Component {
@@ -34,11 +36,7 @@ class AllProducts extends Component {
         
         const { bowItems, loading } = this.props.bowItems;
         const filteredbowitems = [];
-        const loadingIcon = () => {if (loading === true) {
-            return (<h1>LOADING BOWITEMS AAH</h1>);
-            }
-            return
-        }
+        
         bowItems.forEach((bowitem) => {
             if (bowitem.name.toLowerCase().indexOf(toolbarSearchValue.toLowerCase()) === -1
                 && bowitem.manufacturer.toLowerCase().indexOf(toolbarSearchValue.toLowerCase()) === -1
@@ -86,11 +84,23 @@ class AllProducts extends Component {
             }
         }
 
+        const selectImage = (bowType) => {
+            switch(bowType) {
+                case "Compound":
+                    return compoundBow;
+                case "Riser":
+                    return recurveRiser;
+                case "Recurve Limbs":
+                    return recurveLimbs;
+                default:
+                    return null;
+            }
+        }
+
         
         return (
             <div className="all-products-view-container">
-            {loadingIcon()}
-                {filteredbowitems.map(({ _id, name, manufacturer, price, specs }) => (
+                {filteredbowitems.map(({ _id, name, bowType, manufacturer, price, specs }) => (
                     <span
                         onClick={this.selectAndOpenPopup.bind(this, _id, name, manufacturer, price)}
                         style={
@@ -102,7 +112,12 @@ class AllProducts extends Component {
                         key={_id}
                         >
                         <span className="all-products-item-img">
-                            <img className="all-products-item-img-tag" src='https://picsum.photos/80/180' />
+                            <img
+                                className="all-products-item-img-tag"
+                                src={
+                                        selectImage(bowType)
+                                    }
+                                />
                         </span>
                         <span className="all-products-info-list-specs">
                             <span className="all-products-info-list-specs-item">

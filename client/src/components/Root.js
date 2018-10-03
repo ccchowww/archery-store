@@ -270,6 +270,7 @@ class Root extends Component {
         viewOrdersToggleState={this.state.viewOrderToggle}
         allProductsSearchHandler={this.toolbarSearchOnChange}
         allProductsSearchValue={this.state.toolbarSearchInput}
+        productsLoadingState={this.props.bowItems.loading}
         />
       <div className="main-card">
       {

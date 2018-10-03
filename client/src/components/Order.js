@@ -302,14 +302,14 @@ class Order extends Component {
                                 <form className="order-view-left-form"
                                     onSubmit={this.handleUpdateOrder}
                                     >
-                                    <span style={(orderPin === "" || isNaN(orderPin)) ? {color: 'red'} : null }
+                                    <span style={(orderPin !== "" && !isNaN(orderPin)) ? null : {color: 'red'} }
                                         className="order-view-left-form-item">
                                         Selected Order Pin:
                                     </span>
                                     <span className="order-view-left-form-item">
                                         <input 
                                             style={
-                                                (orderPin && orderQuantity && orderMessage && selectedProductName !== "") ?
+                                                (orderPin && orderQuantity && orderMessage && selectedProductName !== "" && !isNaN(orderPin)) ?
                                                 orderValidTextStyle
                                                 : null
                                             }
@@ -397,6 +397,11 @@ class Order extends Component {
                                     </span>
                                     <span className="order-view-left-form-item">
                                         <input
+                                            style={
+                                                (orderPin !== "" && !isNaN(orderPin)) ?
+                                                orderValidTextStyle
+                                                : null
+                                            }
                                             placeholder="Select your Order"
                                             className="order-view-left-form-input"
                                             name="orderUserPin" type="number" value={orderPin} disabled={true}/>

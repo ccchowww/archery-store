@@ -3,14 +3,6 @@ const router = express.Router();
 
 const Order = require('../../models/Order');
 
-//CAUTION TESTINGGGG
-router.get('/test', (req, res, next) => {
-    setTimeout(()=>{
-        res.send({popup: true})
-    }, 2000);
-})
-//CAUTION TESTINGGG END
-
 
 router.get('/', (req, res, next) => {
     Order
