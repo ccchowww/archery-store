@@ -228,6 +228,17 @@ class Root extends Component {
           popupState: false
         })
       }
+
+    clearOrderSelection = () => {
+      this.setState({
+        orderId: "",
+        orderPin: "",
+        orderQuantity: "",
+        orderMessage: "",
+        selectedProductId: "",
+        selectedProductName: ""
+      })
+    }
       
     render() {
         const localeList = {
@@ -313,6 +324,7 @@ class Root extends Component {
             editOrderView={this.editOrderView}
             deleteOrderView={this.deleteOrderView}
             activeTab={this.state.activeTab}
+            clearOrderSelection={this.clearOrderSelection}
             />
           : null
       }

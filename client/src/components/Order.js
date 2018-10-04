@@ -19,6 +19,7 @@ class Order extends Component {
             pin: pinNumber
         }
         this.props.addOrder(newOrder);
+        this.props.clearOrderSelection();
     }
 
     handleUpdateOrder = e => {
@@ -34,16 +35,16 @@ class Order extends Component {
             pin: pinNumber
         }
         this.props.updateOrder(updatedOrder);
+        this.props.clearOrderSelection();
     }
 
     handleDeleteOrder = e => {
         e.preventDefault();
-        // const pinNumber = parseInt(this.props.orderPin);
-        // const userPinNumber = parseInt(this.props.orderUserPin);
         const DeleteOrder = {
             _id: this.props.orderId
         };
         this.props.deleteOrder(DeleteOrder);
+        this.props.clearOrderSelection();
     }
 
     retrieveOrders = e => {
@@ -51,8 +52,10 @@ class Order extends Component {
         const orderUserPin = parseInt(this.props.orderUserPin, 10);
         if (this.props.orderUserPin === "") {
             this.props.getAllOrders();
+            this.props.clearOrderSelection();
         } else {
             this.props.getOrders(orderUserPin);
+            this.props.clearOrderSelection();
         }
     }
 
