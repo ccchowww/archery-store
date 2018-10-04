@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getOrders, getAllOrders, addOrder, updateOrder, deleteOrder } from '../actions/orderActions';
-import "../App.css";
+import "./styles/Order.css";
 
 
 class Order extends Component {
-
-
+    
     handleAddOrder = e => {
         e.preventDefault();
         const pinNumber = parseInt(this.props.orderUserPin, 10);

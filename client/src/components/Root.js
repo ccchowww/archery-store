@@ -1,15 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { openPopup } from '../actions/bowItemActions';
-
 import Landing from './Landing';
 import Topbar from './Topbar';
 import Toolbar from './Toolbar';
 import AllProducts from './AllProducts';
 import Order from './Order';
-
-
-import '../App.css';
+import './styles/Root.css';
 
 
 

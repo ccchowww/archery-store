@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getBowItems, openPopup } from '../actions/bowItemActions';
-import '../App.css';
+import './styles/AllProducts.css'
 import compoundBow from '../images/compoundBow.png';
 import recurveRiser from '../images/recurveRiser.png';
 import recurveLimbs from '../images/recurveLimbs.png';
@@ -148,10 +148,6 @@ class AllProducts extends Component {
                             <span className="all-products-info-list-item all-products-info-list-item-last">
                                 {calculatePriceByLocale(locale, price).toLocaleString(locale.string,{style: locale.object.style, currency:locale.object.currency})}
                             </span>
-                            {/* <span className="all-products-info-list-item all-products-info-list-item-select">
-                                <input className="all-products-info-list-item-select"
-                                    onClick={selectProductHandler.bind(this, _id, name, manufacturer, price)} type="button" value="Select"/>
-                            </span> */}
                         </span>
                         
                     </span>

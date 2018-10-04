@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../App.css';
+import './styles/Toolbar.css';
 
 
 
@@ -75,7 +75,7 @@ class Toolbar extends Component {
                 <span className="toolbar-items-right">
                 {
                   this.props.viewProductsToggleState === true ?
-                    <input type="text" className="toolbar-item-right searchbar"
+                    <input type="text" className="searchbar"
                     name="toolbarSearchInput"
                     onChange={this.props.allProductsSearchHandler}
                     value={this.props.allProductsSearchValue}
@@ -85,7 +85,7 @@ class Toolbar extends Component {
                         : "Search..."
                     }
                     />
-                    : <span className="toolbar-item-right"></span>
+                    : <span></span>
                 }
   
                 </span>
