@@ -17,14 +17,14 @@ class Landing extends Component {
                 <input
                     className="landing-input-2"
                     disabled={true}
-                    value="- Get, Add, Edit and Delete Orders."
+                    value="Get, Add, Edit and Delete Orders."
                     />
             </div>
             <div className="landing-input-container-3">
                 <input
                     className="landing-input-3"
                     disabled={true}
-                    value="- Built with {"
+                    value="Built with {"
                     />
             </div>
             <div className="landing-input-container-4">
@@ -60,20 +60,6 @@ class Landing extends Component {
                     className="landing-input-8"
                     disabled={true}
                     value="};"
-                    />
-            </div>
-            <div className="landing-input-container-9">
-                <input
-                    className="landing-input-9"
-                    disabled={true}
-                    value="- and over 900 lines of CSS"
-                    />
-            </div>
-            <div className="landing-input-container-10">
-                <input
-                    className="landing-input-10"
-                    disabled={true}
-                    value="..."
                     />
             </div>
         </div>

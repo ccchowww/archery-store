@@ -1,8 +1,7 @@
 # More Information
 Redux used to manage backend. (Mongoose)
 
-a CSS preprocessor should have been used.
-  App.css - 999 lines;
+regular CSS was used for all animations/transitions.
 
 Region currency selection.
 
