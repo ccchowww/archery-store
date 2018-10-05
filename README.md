@@ -1,7 +1,10 @@
 # Cloning and running locally
 Put your mongoURI in server.js line 14.
+
 {
+
     mongoURI: ""
+    
 }
 
 # More Information
