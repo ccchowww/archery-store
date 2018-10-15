@@ -1,1 +1,1 @@
-### Learning to build a responsive, single-page web app with a hopefully intuitive UI.
+### Learning to build a responsive, single-page web app with an intuitive UI.
