@@ -41,12 +41,12 @@ class Root extends Component {
       handleOrderSelect = (_id, pin, orderProductName, orderProductId) => {
         const pinNumber = parseInt(pin, 10);
         if (this.state.orderId === "") {
-          this.setState({
+            this.setState({
             orderPin: pinNumber,
             orderId: _id,
             orderProductName: orderProductName,
             orderProductId: orderProductId
-          });
+            });
         } else if (this.state.orderId === _id) {
           this.setState({
             orderPin: "",
@@ -55,16 +55,16 @@ class Root extends Component {
             orderProductId: ""
           })
         } else {
-          this.setState({
+            this.setState({
             orderPin: pinNumber,
             orderId: _id,
             orderProductName: orderProductName,
             orderProductId: orderProductId
-          })
+            })
         }
-      }
+    }
     
-      handleOrderFormChange = (e) => {
+    handleOrderFormChange = (e) => {
         switch(e.target.name) {
             case 'orderUserPin':
                 if (e.target.value > 9999 || e.target.value < 0) {
@@ -270,7 +270,10 @@ class Root extends Component {
 
         return (
             <div>
-      <Topbar locale={this.state.locale} handleLocaleChange={this.localeChange}/>
+      <Topbar
+        locale={this.state.locale}
+        handleLocaleChange={this.localeChange}
+        />
       <Toolbar
         viewProducts={this.viewProducts}
         viewOrder={this.viewOrder}
@@ -291,11 +294,11 @@ class Root extends Component {
             toolbarSearchValue={this.state.toolbarSearchInput}
             toolbarSearchHandler={this.toolbarSearchOnChange}
             selectProductHandler={this.onProductSelect}
-            // selectAndOpenPopup={this.selectAndOpenPopup}
             selectedProduct={this.state.selectedProductId}
             selectedProductName={this.state.selectedProductName}
             openPopup={this.openPopup}
             closePopup={this.closePopup}
+            productsLoadingState={this.props.bowItems.loading}
             />
           : null
       }

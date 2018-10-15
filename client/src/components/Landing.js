@@ -62,7 +62,7 @@ class Landing extends Component {
                     value="};"
                     />
             </div>
-        </div>
+            </div>
             );
     }
 }

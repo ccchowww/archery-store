@@ -5,7 +5,7 @@ import './styles/AllProducts.css'
 import compoundBow from '../images/compoundBow.png';
 import recurveRiser from '../images/recurveRiser.png';
 import recurveLimbs from '../images/recurveLimbs.png';
-
+import loadingSvg from '../images/Rolling-1s-200px.svg';
 
 class AllProducts extends Component {
 
@@ -102,56 +102,64 @@ class AllProducts extends Component {
         
         return (
             <div className="all-products-view-container">
-                {filteredbowitems.map(({ _id, name, bowType, manufacturer, price, specs }) => (
-                    <span
-                        onClick={this.selectAndOpenPopup.bind(this, _id, name, manufacturer, price)}
-                        style={
-                                _id === selectedProductId ?
-                                selectedStyle
-                                : null
-                        }
-                        className='all-products-item'
-                        key={_id}
-                        >
-                        <span className="all-products-item-img">
-                            <img
-                                className="all-products-item-img-tag"
-                                src={
-                                        selectImage(bowType)
-                                    }
-                                alt="Archery equipment"
-                                />
-                        </span>
-                        <span className="all-products-info-list-specs">
-                            <span className="all-products-info-list-specs-item">
-                                    {keyByIndex(specs, 0)}:
-                                </span>
-                                <span className="all-products-info-list-specs-item all-products-info-list-specs-item-text">
-                                    {valueByIndex(specs, 0)}
-                                </span>
-                                <span className="all-products-info-list-specs-item ">
-                                    {keyByIndex(specs, 1)}:
-                                </span>
-                                <span className="all-products-info-list-specs-item all-products-info-list-specs-item-text">
-                                    {valueByIndex(specs, 1)}
-                                </span>
-                                <span className="all-products-info-list-specs-item ">
-                                    {keyByIndex(specs, 2)}:
-                                </span>
-                                <span className="all-products-info-list-specs-item all-products-info-list-specs-item-text">
-                                    {valueByIndex(specs, 2)}
-                                </span>
-                            </span>
-                        <span className="all-products-info-list">
-                            <span className="all-products-info-list-item">{name}</span>
-                            <span className="all-products-info-list-item">{manufacturer}</span>
-                            <span className="all-products-info-list-item all-products-info-list-item-last">
-                                {calculatePriceByLocale(locale, price).toLocaleString(locale.string,{style: locale.object.style, currency:locale.object.currency})}
-                            </span>
-                        </span>
-                        
+                {
+                    this.props.productsLoadingState === true ?
+                    <span>
+                        <img src={loadingSvg} alt="loading icon" />
                     </span>
-                ))}
+                    :
+                    filteredbowitems.map(({ _id, name, bowType, manufacturer, price, specs }) => (
+                        <span
+                            onClick={this.selectAndOpenPopup.bind(this, _id, name, manufacturer, price)}
+                            style={
+                                    _id === selectedProductId ?
+                                    selectedStyle
+                                    : null
+                            }
+                            className='all-products-item'
+                            key={_id}
+                            >
+                            <span className="all-products-item-img">
+                                <img
+                                    className="all-products-item-img-tag"
+                                    src={
+                                            selectImage(bowType)
+                                        }
+                                    alt="Archery equipment"
+                                    />
+                            </span>
+                            <span className="all-products-info-list-specs">
+                                <span className="all-products-info-list-specs-item">
+                                        {keyByIndex(specs, 0)}:
+                                    </span>
+                                    <span className="all-products-info-list-specs-item all-products-info-list-specs-item-text">
+                                        {valueByIndex(specs, 0)}
+                                    </span>
+                                    <span className="all-products-info-list-specs-item ">
+                                        {keyByIndex(specs, 1)}:
+                                    </span>
+                                    <span className="all-products-info-list-specs-item all-products-info-list-specs-item-text">
+                                        {valueByIndex(specs, 1)}
+                                    </span>
+                                    <span className="all-products-info-list-specs-item ">
+                                        {keyByIndex(specs, 2)}:
+                                    </span>
+                                    <span className="all-products-info-list-specs-item all-products-info-list-specs-item-text">
+                                        {valueByIndex(specs, 2)}
+                                    </span>
+                                </span>
+                            <span className="all-products-info-list">
+                                <span className="all-products-info-list-item">{name}</span>
+                                <span className="all-products-info-list-item">{manufacturer}</span>
+                                <span className="all-products-info-list-item all-products-info-list-item-last">
+                                    {calculatePriceByLocale(locale, price).toLocaleString(locale.string,{style: locale.object.style, currency:locale.object.currency})}
+                                </span>
+                            </span>
+                            
+                        </span>
+                    ))
+                }
+                
             </div>
         );
         
