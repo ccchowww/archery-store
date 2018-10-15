@@ -122,6 +122,7 @@ input, select, textarea, button{font-family:inherit;}
     margin-top: auto;
     margin-bottom: 0.7rem;
     height: 3rem;
+    padding: 0;
     align-self: center;
     outline: none;
     border: none;
@@ -208,6 +209,7 @@ input, select, textarea, button{font-family:inherit;}
     font-weight: 600;
     font-size: 1.1rem;
     margin-bottom: 0.7rem;
+    padding: 0;
     align-self: center;
     outline: none;
     border: none;
@@ -215,4 +217,7 @@ input, select, textarea, button{font-family:inherit;}
     -webkit-transition: width 0.3s ease-in-out;
     transition: width 0.3s ease-in-out;
 }
-  
+
+.order-list-item-button:disabled {
+    background-color: rgba(0,0,0,0.2);
+}
