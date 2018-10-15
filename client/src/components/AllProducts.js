@@ -25,7 +25,7 @@ class AllProducts extends Component {
         const popupState = this.props.bowItems.popupState;
 
         this.props.openPopup(popupState.toString());
-        this.props.selectProductHandler(_id, name, manufacturer, price)
+        this.props.selectProductHandler(_id, name, manufacturer, price);
     }
 
     render() {

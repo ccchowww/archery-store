@@ -169,8 +169,7 @@ class Root extends Component {
             selectedProductId: _id,
             selectedProductName: name,
             selectedProductManufacturer: manufacturer,
-            selectedProductPrice: price,
-            popupCounter: this.state.popupCounter + 1
+            selectedProductPrice: price
           });
         } else if (this.state.selectedProductId === _id) {
           this.setState({
