@@ -5,7 +5,7 @@ import './styles/AllProducts.css'
 import compoundBow from '../images/compoundBow.png';
 import recurveRiser from '../images/recurveRiser.png';
 import recurveLimbs from '../images/recurveLimbs.png';
-import loadingSvg from '../images/Rolling-1s-200px.svg';
+import loadingSvg from '../images/loadingSvg.svg';
 
 class AllProducts extends Component {
 
