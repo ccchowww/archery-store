@@ -31,8 +31,8 @@ input, select, textarea, button{font-family:inherit;}
 @media only screen and (min-width: 600px) {
     .order-view-main-container {
       display: grid;
-      grid-template-columns: 50% 50%;
-      grid-template-rows: 100%;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
     }
 }
   
@@ -45,6 +45,7 @@ input, select, textarea, button{font-family:inherit;}
 
 
 .order-view-left-container {
+    margin-bottom: 3vh;
     display: flex;
     flex-direction: column;
     align-items: center;

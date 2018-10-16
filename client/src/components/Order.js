@@ -51,7 +51,7 @@ class Order extends Component {
         const orderUserPin = parseInt(this.props.orderUserPin, 10);
         if (this.props.orderUserPin === "") {
             this.props.getAllOrders();
-            this.props.clearOrderSelection();
+            this.props.clearOrderSelectionNotProduct();
         } else {
             this.props.getOrders(orderUserPin);
             this.props.clearOrderSelection();
