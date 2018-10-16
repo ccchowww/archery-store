@@ -411,7 +411,7 @@ class Order extends Component {
                                             name="orderUserPin" type="number" value={orderPin} disabled={true}/>
                                     </span>
                                     <span className="order-view-left-form-last-item order-view-left-form-last-item-value order-view-left-form-input-note">
-                                        *Delete selected order. Requires Pin.
+                                        *Deletes selected order.
                                     </span>
                                     <span className="order-view-left-form-last">
                                         <input
