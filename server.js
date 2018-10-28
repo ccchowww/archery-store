@@ -20,7 +20,15 @@ mongoose
 
 app.use('/api/bowitem', bowItem);
 app.use('/api/order', order);
-
+// Redirect http to https
+if(process.env.NODE_ENV == 'production') {
+    app.use((req, res, next) => {
+      if (req.header('x-forwarded-proto') !== 'https')
+        res.redirect(`https://${req.header('host')}${req.url}`)
+      else
+        next()
+    })
+}
 //serve static if production
 if(process.env.NODE_ENV == 'production') {
     //set static folder
