@@ -69,17 +69,10 @@ class Order extends Component {
             orderPin,
             orderUserPin,
             orderMessage,
-            orderQuantity,
-            orderProductId,
-            orderProductName
+            orderQuantity
         } = this.props;
 
-        const {
-            selectedProductId,
-            selectedProductName,
-            selectedProductManufacturer,
-            selectedProductPrice
-        } = this.props;
+        const { selectedProductName } = this.props;
 
         const selectedStyle = {
             boxShadow: '0 4px 12px 0 rgba(0,0,0,0.3)'
@@ -95,9 +88,6 @@ class Order extends Component {
             boxShadow: '0 4px 12px 0 rgba(0,0,0,0.3)'
         }
 
-        const orderValidTitleStyle = {
-            color: 'rgb(0, 200, 255)'
-        }
         const orderValidTextStyle = {
             borderBottom: '1px solid rgb(0, 200, 255)',
             textShadow: '0px 1px 2px rgba(0,0,0,0.2)',

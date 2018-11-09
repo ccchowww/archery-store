@@ -16,9 +16,12 @@ class AllProducts extends Component {
     }
     
     componentDidMount() {
-        this.props.bowItems.bowItems.length === 0 ?
+        //check for bow items, if present do nothing
+        if (this.props.bowItems.bowItems.length === 0) {
             this.props.getBowItems()
-            : null
+        } else {
+            return null
+        }
     }
 
     selectAndOpenPopup = (_id, name, manufacturer, price) => {
@@ -31,10 +34,10 @@ class AllProducts extends Component {
     render() {
         const toolbarSearchValue = this.props.toolbarSearchValue;
 
-        const selectProductHandler = this.props.selectProductHandler;
+        // const selectProductHandler = this.props.selectProductHandler;
         const selectedProductId= this.props.selectedProduct;
         
-        const { bowItems, loading } = this.props.bowItems;
+        const { bowItems } = this.props.bowItems;
         const filteredbowitems = [];
         
         bowItems.forEach((bowitem) => {
