@@ -23,8 +23,8 @@
   "homepage": "https://github.com/ccchowww/archery-store#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "concurrently": "^4.0.1",
-    "express": "^4.16.3",
-    "mongoose": "^5.2.9"
+    "concurrently": "^4.1.0",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.6"
   }
 }
